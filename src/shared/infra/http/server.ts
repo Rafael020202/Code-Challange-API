@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import 'express-async-errors';
 
 import express, { json, NextFunction, Request, Response } from 'express';
+
 import chalk from 'chalk';
 import routes from './routes';
 

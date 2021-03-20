@@ -1,38 +1,46 @@
 import AppError from "@shared/Error/AppError";
-import { container, inject, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import ICreateProblemDTO from "../dtos/ICreateProblemDTO";
 import Problem from "../infra/typeorm/entities/Problem";
-import ProblemRepository from "../infra/typeorm/repositories/ProblemRepository";
-import CreateInputExampleService from "./CreateInputExampleService";
+import IInputExampleRepository from "../repositories/IInputExampleRepository";
+import IOutputExampleRepository from "../repositories/IOutputExampleRepository";
+import IProblemRepository from "../repositories/IProblemRepository";
 
 @injectable()
 export default class CreateProblemService {
   
   constructor( 
     @inject('ProblemRepository')
-    private problemRepository: ProblemRepository 
+    private problemRepository: IProblemRepository,
+
+    @inject('InputExampleRepository')
+    private inputExampleRepository: IInputExampleRepository,
+
+    @inject('OutputExampleRepository')
+    private outputExampleRepository: IOutputExampleRepository
   ){}
   
   public async execute(data: ICreateProblemDTO): Promise<Problem> {
     const findProblem = await this.problemRepository.getByTitle(data.title);
 
     if(findProblem) {
-      throw new AppError(400,'There is another problem with the same title');
+      throw new AppError(400, 'There is another problem with the same title');
     }
 
     const problem = await this.problemRepository.create(data);
-    const createInputExample = container.resolve(CreateInputExampleService);
     
     problem.input_example.forEach(
-      async (inputExample) => await createInputExample.execute(
-        { 
+      async (data) => { 
+        const { id: inputExampleId } = await this.inputExampleRepository.create({
           problem_id: problem.id, 
-          value: inputExample.value,
+          value: data.value,
+        });
 
-          output: inputExample.output
-        }
-      )
-    );
+        await this.outputExampleRepository.create({
+          input_example_id: inputExampleId,
+          value: data.output.value
+        });
+    });
 
     return problem;
   }
