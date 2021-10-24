@@ -1,16 +1,17 @@
 import { inject, injectable } from "tsyringe";
-import Problem from "../infra/typeorm/entities/Problem";
-import ProblemRepository from "../infra/typeorm/repositories/ProblemRepository";
+import IProblemRepository from "../repositories/IProblemRepository";
 
 @injectable()
 export default class ListProblemService {
-
+  
   constructor(
     @inject('ProblemRepository')
-    private problemRepository: ProblemRepository
-  ){}
+    private problemRepository: IProblemRepository
+  ) {}
 
-  public async execute(): Promise<Problem[]> {
-    return await this.problemRepository.getAll();
+  public async execute(id?: string) {
+    if (id) return this.problemRepository.getById(id);
+
+    return this.problemRepository.getAll();
   }
 }

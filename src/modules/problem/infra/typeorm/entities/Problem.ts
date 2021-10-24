@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, TableInheritance, OneToMany, JoinColumn, JoinTable, OneToOne } from 'typeorm';
-import InputExample from './InputExample';
-import OutputExample from './OutputExample';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, TableInheritance, OneToMany, JoinColumn, JoinTable, OneToOne, ManyToOne } from 'typeorm';
+import Category from './Category';
+import Input from './Input';
 
 @Entity('problems')
 export default class Problem { 
@@ -26,9 +26,17 @@ export default class Problem {
   @Column()
   response: string;
 
-  @OneToMany(() => InputExample, input_example => input_example.problem)
-  input_example: InputExample[]
+  @Column()
+  category_id: string;
 
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category
+
+  /*@OneToMany(() => Input, input => input.problem_id)
+  @JoinTable({ name: 'inputs' })
+  inputs: Input[];
+*/
   @CreateDateColumn()
   created_at: Date;
 

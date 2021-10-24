@@ -1,9 +1,7 @@
-import ICreateProblemDTO from "@modules/problem/dtos/ICreateProblemDTO";
-import IProblemRepository from "@modules/problem/repositories/IProblemRepository";
-import { EntityRepository, getRepository, Repository } from "typeorm";
-import InputExample from "../entities/InputExample";
-import Problem from "../entities/Problem";
-
+import { EntityRepository, getRepository, Repository } from 'typeorm';
+import IProblemDTO from '@modules/problem/dtos/IProblemDTO';
+import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
+import Problem from '../entities/Problem';
 
 @EntityRepository(Problem)
 export default class ProblemRepository implements IProblemRepository{
@@ -13,9 +11,15 @@ export default class ProblemRepository implements IProblemRepository{
     this.ormRepository = getRepository(Problem);
   }
 
+  public async create(data: IProblemDTO): Promise<Problem> {
+    const problem = this.ormRepository.create(data);
+
+    return (await this.ormRepository.save(problem));
+  }
+
   public async getAll(): Promise<Problem[]> {
     const problems = await this.ormRepository.find({
-      relations: ['input_example', 'input_example.output']
+      relations: ['category']
     });
 
     return problems;
@@ -27,13 +31,14 @@ export default class ProblemRepository implements IProblemRepository{
     return problem;
   }
 
-  public async create(data: ICreateProblemDTO): Promise<Problem> {
-    const problem = this.ormRepository.create(data);
-
-    return (await this.ormRepository.save(problem));
+  public async getById(id: string): Promise<Problem | undefined> {
+    return await this.ormRepository.findOne({ 
+      where: {id},
+      relations: ['category'] 
+    });
   }
 
-  
-
-
+  public async getByCategory(category_id: string): Promise<Problem[] | undefined> {
+    return await this.ormRepository.find({ where: { category_id } })
+  } 
 }

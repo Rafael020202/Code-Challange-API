@@ -1,10 +1,13 @@
-import AppError from "@shared/Error/AppError";
-import { inject, injectable } from "tsyringe";
-import ICreateProblemDTO from "../dtos/ICreateProblemDTO";
-import Problem from "../infra/typeorm/entities/Problem";
-import IInputExampleRepository from "../repositories/IInputExampleRepository";
-import IOutputExampleRepository from "../repositories/IOutputExampleRepository";
-import IProblemRepository from "../repositories/IProblemRepository";
+import { inject, injectable } from 'tsyringe';
+
+import AppError from '@shared/errors/AppError';
+
+import IProblemDTO from '../dtos/IProblemDTO';
+import Problem from '../infra/typeorm/entities/Problem';
+
+import IInputRepository from '../repositories/IInputRepository';
+import IProblemRepository from '../repositories/IProblemRepository';
+
 
 @injectable()
 export default class CreateProblemService {
@@ -13,33 +16,24 @@ export default class CreateProblemService {
     @inject('ProblemRepository')
     private problemRepository: IProblemRepository,
 
-    @inject('InputExampleRepository')
-    private inputExampleRepository: IInputExampleRepository,
-
-    @inject('OutputExampleRepository')
-    private outputExampleRepository: IOutputExampleRepository
+    @inject('InputRepository')
+    private inputRepository: IInputRepository
   ){}
   
-  public async execute(data: ICreateProblemDTO): Promise<Problem> {
+  public async execute(data: IProblemDTO): Promise<Problem> {
     const findProblem = await this.problemRepository.getByTitle(data.title);
 
     if(findProblem) {
-      throw new AppError(400, 'There is another problem with the same title');
+      throw new AppError('There is another problem with the same title',  400);
     }
 
     const problem = await this.problemRepository.create(data);
-    
-    problem.input_example.forEach(
-      async (data) => { 
-        const { id: inputExampleId } = await this.inputExampleRepository.create({
-          problem_id: problem.id, 
-          value: data.value,
-        });
 
-        await this.outputExampleRepository.create({
-          input_example_id: inputExampleId,
-          value: data.output.value
-        });
+    data.inputs.forEach(async (input) => {
+      await this.inputRepository.create({
+        problem_id: problem.id,
+        ...input
+      });
     });
 
     return problem;
