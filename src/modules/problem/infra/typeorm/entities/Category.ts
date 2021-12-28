@@ -2,8 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('categories')
 export default class Category {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  
+  @PrimaryGeneratedColumn('increment', { type: 'integer' })
+  id: number;
 
   @Column()
   description: string;

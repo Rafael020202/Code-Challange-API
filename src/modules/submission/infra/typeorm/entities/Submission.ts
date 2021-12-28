@@ -1,26 +1,55 @@
 import Problem from "@modules/problem/infra/typeorm/entities/Problem";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import User from "@modules/users/infra/typeorm/entities/User";
+import { 
+  Column, 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  JoinColumn, 
+  ManyToOne, 
+  CreateDateColumn,
+  UpdateDateColumn
+} from "typeorm";
 
 @Entity('submissions')
 export default class Submission {
-
-  @PrimaryGeneratedColumn()
-  id: string;
+  
+  @PrimaryGeneratedColumn('increment', { type: 'numeric' })
+  id: number;
 
   @Column()
   status: string;
 
-  @Column()
-  response: string;
+  @Column({ type: 'numeric' })
+  user_id: number;
 
-  @Column()
-  problem_id: string;
+  @Column({ type: 'numeric' })
+  problem_id: number;
 
   @Column()
   source_code: string;
 
-  /*@OneToOne(() => Problem)
+  @Column({ type: 'numeric' })
+  time: number;
+
+  @Column({ type: 'numeric' })
+  memory: number;
+  
+  @Column()
+  message: string;
+
+  @ManyToOne(() => Problem, problem => problem.submissions)
   @JoinColumn({ name: 'problem_id' })
   problem: Problem;
-  */
+
+  @ManyToOne(() => User, user => user.submissions)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+  
 }

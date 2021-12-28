@@ -17,14 +17,14 @@ export default class InputRepository implements IInputRepository{
     return await this.ormRepository.save(input);
   }
 
-  public async getExamples(problem_id: string): Promise<Input[]> {
+  public async getExamples(problem_id: number): Promise<Input[]> {
     return this.ormRepository.find({ where: { 
         problem_id, isExample: true
       }
     });
   }
 
-  public async getByProblemId(problem_id: string): Promise<Input[]> {
+  public async getByProblemId(problem_id: number): Promise<Input[]> {
     return this.ormRepository.find({ where: {problem_id} });
   }
 }

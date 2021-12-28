@@ -9,6 +9,7 @@ export default class ProblemController {
   private problemsRepository: IProblemRepository;
 
   public async create(request: Request, response: Response) {
+    console.log(request.body)
     const createProblemService = container.resolve(CreateProblemService);
     const problem = await createProblemService.execute(request.body);
       
@@ -16,17 +17,18 @@ export default class ProblemController {
   }
     
   public async index(request: Request, response: Response) {
-    const { category_id } = request.params;
+    const { user_id } = request.body;
+
     this.problemsRepository = new ProblemRepository();
     
-    return response.json(await this.problemsRepository.getByCategory(category_id));
+    return response.json(await this.problemsRepository.getAll(user_id));
   }
 
   public async get(request: Request, response: Response) {
     const { id } = request.params;
     this.problemsRepository = new ProblemRepository();
 
-    return response.json(await this.problemsRepository.getById(id));
+    return response.json(await this.problemsRepository.getById(Number(id)));
   } 
 
 }

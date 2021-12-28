@@ -10,7 +10,7 @@ interface ITokenPayload {
 
 export default function isAuthenticated(request: Request, response: Response, next: NextFunction) {
   const authHeader = request.headers.authorization;
-
+  console.log(request.headers.authorization)
   if (!authHeader) {
     throw new AppError('JWT is missing');
   }
@@ -24,7 +24,8 @@ export default function isAuthenticated(request: Request, response: Response, ne
       id: sub
     }
     
-  }catch{
+  }catch(error){
+    console.log(error)
     throw new AppError('Invalid JWT token');
   }
 

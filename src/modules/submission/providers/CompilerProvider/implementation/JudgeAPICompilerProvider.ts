@@ -26,7 +26,7 @@ export default class JudgeAPICompilerProvider implements ICompilerProvider  {
 
     const response = await axios.post(`${process.env.JudgeAPIHost}/submissions/?base64_encoded=true`,{
       source_code,
-      language_id: 48,
+      language_id: 52,
       stdin
     },{
       headers: {

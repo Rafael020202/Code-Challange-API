@@ -12,6 +12,9 @@ import chalk from 'chalk';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import logRequest from '@shared/middlewares/logRequest';
+import { config } from 'dotenv';
+
+config();
 
 const app = express();
 
@@ -31,6 +34,6 @@ app.use(
 );
 
 
-app.listen(3333, () => {
+app.listen(8080, () => {
   console.log(chalk.yellow('Application up and running on port 3333'))
 });

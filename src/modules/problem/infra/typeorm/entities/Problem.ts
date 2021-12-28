@@ -1,12 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, TableInheritance, OneToMany, JoinColumn, JoinTable, OneToOne, ManyToOne } from 'typeorm';
+import { 
+  Entity,
+  Column, 
+  PrimaryGeneratedColumn, 
+  CreateDateColumn, 
+  UpdateDateColumn, 
+  OneToMany, 
+  JoinTable,
+  JoinColumn, 
+  ManyToOne 
+} from 'typeorm';
 import Category from './Category';
 import Input from './Input';
+import Submission from '@modules/submission/infra/typeorm/entities/Submission';
+
 
 @Entity('problems')
 export default class Problem { 
- 
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  
+  @PrimaryGeneratedColumn('increment', { type: 'numeric' })
+  id: number;
 
   @Column()
   title: string;
@@ -15,28 +27,38 @@ export default class Problem {
   description: string;
 
   @Column()
-  source_code: string;
-
-  @Column()
   input_description: string;
 
   @Column()
   output_description: string;
 
-  @Column()
+  @Column({ nullable: true })
   response: string;
 
   @Column()
-  category_id: string;
+  source_code: string;
+
+  @Column({ type: 'numeric'})
+  category_id: number;
+
+  @Column()
+  level: number;
+
+  @Column({ type: 'float4'})
+  points: number;
+
+  qty_accepted: number;
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
   category: Category
 
-  /*@OneToMany(() => Input, input => input.problem_id)
-  @JoinTable({ name: 'inputs' })
+  @OneToMany(() => Submission, submission => submission.problem)
+  submissions: Submission[]
+
+  @OneToMany(() => Input, input => input.problem)
   inputs: Input[];
-*/
+
   @CreateDateColumn()
   created_at: Date;
 

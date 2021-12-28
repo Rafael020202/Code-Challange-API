@@ -4,7 +4,7 @@ import Problem from "../infra/typeorm/entities/Problem";
 export default interface IProblemRepository  {
   create(data: IProblemDTO): Promise<Problem>;
   getByTitle(title: string): Promise<Problem | undefined>;
-  getAll(): Promise<Problem[]>;
-  getById(id: string): Promise<Problem | undefined>;
-  getByCategory(category_id: string): Promise<Problem[] | undefined>;
+  getAll(user_id: number): Promise<Problem[]>;
+  getById(id: number): Promise<Problem | undefined>;
+  getByCategory(category_id: number): Promise<Problem[] | undefined>;
 }

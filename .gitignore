@@ -1,3 +1,7 @@
 node_modules
 ormconfig.json
 .env
+/yarn.lock
+.vscode
+.idea
+src/shared/infra/database/migrations/*.ts

@@ -14,13 +14,19 @@ export default class ProblemRepository implements IProblemRepository{
   public async create(data: IProblemDTO): Promise<Problem> {
     const problem = this.ormRepository.create(data);
 
-    return (await this.ormRepository.save(problem));
+    return await this.ormRepository.save(problem);
   }
 
-  public async getAll(): Promise<Problem[]> {
-    const problems = await this.ormRepository.find({
-      relations: ['category']
-    });
+  public async getAll(user_id: number): Promise<Problem[]> {
+    const problems = await this.ormRepository
+    .createQueryBuilder('problems')
+    .leftJoinAndSelect('problems.submissions','s', 's.user_id = :user_id', { user_id })
+    .leftJoinAndSelect('problems.category', 'c')
+    .loadRelationCountAndMap(
+      'problems.qty_accepted', 
+      'problems.submissions', 
+      'submission', (qb) => qb.where('submission.status = :status', {status: 'accepted'})
+    ).getMany()
 
     return problems;
   }
@@ -31,14 +37,14 @@ export default class ProblemRepository implements IProblemRepository{
     return problem;
   }
 
-  public async getById(id: string): Promise<Problem | undefined> {
+  public async getById(id: number): Promise<Problem | undefined> {
     return await this.ormRepository.findOne({ 
       where: {id},
-      relations: ['category'] 
+      relations: ['category', 'inputs'] 
     });
   }
 
-  public async getByCategory(category_id: string): Promise<Problem[] | undefined> {
+  public async getByCategory(category_id: number): Promise<Problem[] | undefined> {
     return await this.ormRepository.find({ where: { category_id } })
   } 
 }
