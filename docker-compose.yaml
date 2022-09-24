@@ -1,0 +1,16 @@
+version: '3'
+
+networks:
+  square-judge:
+    driver: bridge
+
+services:
+  square-judge:
+    image: rlimadckr/square-judge
+    networks:
+      - "square-judge"
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
