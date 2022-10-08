@@ -15,7 +15,7 @@ export default class CreateSubmissionService {
     @inject('CompilerProvider')
     private complierProvider: ICompilerProvider,
 
-    @inject('InputRepository')
+    @inject('ProblemRepository')
     private problemRepository: IProblemRepository
   ) {}
 
