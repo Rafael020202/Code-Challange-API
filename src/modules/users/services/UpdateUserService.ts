@@ -1,8 +1,10 @@
 import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
-import IUpdateUserDTO from '../dtos/IUpdateUserDTO';
-import IUserRepository from '../repositories/IUserRepository';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+
+import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
+import IUserRepository from '@modules/users/repositories/IUserRepository';
+import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 
 @injectable()
 export default class UpdateUserService {

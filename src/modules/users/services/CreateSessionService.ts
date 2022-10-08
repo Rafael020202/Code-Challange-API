@@ -3,10 +3,12 @@ import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+
 import authConfig from '@config/authConfig';
-import ICreateSessionDTO from '../dtos/ICreateSessionDTO';
-import IUserRepository from '../repositories/IUserRepository';
-import User from '../infra/typeorm/entities/User';
+
+import User from '@modules/users/infra/typeorm/entities/User';
+import ICreateSessionDTO from '@modules/users/dtos/ICreateSessionDTO';
+import IUserRepository from '@modules/users/repositories/IUserRepository';
 
 interface IResponse {
   user: User;
