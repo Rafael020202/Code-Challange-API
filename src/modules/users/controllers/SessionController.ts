@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateSessionService from '@modules/users/services/CreateSessionService';
 
-export default class SessionControler {
+export class SessionControler {
   public async create(request: Request, response: Response) {
     const createSessionService = container.resolve(CreateSessionService);
     const service = await createSessionService.execute(request.body);

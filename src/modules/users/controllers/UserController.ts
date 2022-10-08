@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 
-export default class UserController {
+export class UserController {
   public async create(request: Request, response: Response) {
     const createUserService = container.resolve(CreateUserService);
 
