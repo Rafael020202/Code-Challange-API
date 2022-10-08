@@ -2,15 +2,14 @@ import { Router } from 'express';
 
 import ProblemRoutes from '@modules/problem/infra/http/routes/problem.routes';
 import SubmissionRoutes from '@modules/submission/infra/http/submission.routes';
-import usersRoutes from '@modules/users/infra/routes/user.routes';
-import sessionsRoutes from '@modules/users/infra/routes/session.routes';
+import { sessionRoutes, userRoutes } from '@modules/users/infra/routes';
 
 import isAuthenticated from '@shared/middlewares/isAuthenticated';
 
 const routes = Router();
 
-routes.use('/users', usersRoutes);
-routes.use('/session', sessionsRoutes);
+routes.use('/users', userRoutes);
+routes.use('/session', sessionRoutes);
 
 routes.use(isAuthenticated);
 

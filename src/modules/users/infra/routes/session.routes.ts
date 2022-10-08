@@ -7,4 +7,4 @@ const sessionController = new SessionControler();
 
 sessionRoutes.post('/', sessionController.create);
 
-export default sessionRoutes;
+export { sessionRoutes };
