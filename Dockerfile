@@ -1,6 +1,6 @@
 FROM node
-WORKDIR /apps
-COPY package*.json ./
+WORKDIR /usr/judge
+COPY *.json ./
 RUN yarn
 COPY . .
 EXPOSE 8080
