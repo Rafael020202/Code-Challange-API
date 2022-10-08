@@ -57,6 +57,8 @@ export default class CreateSubmissionService {
 
     const map: { [key: number]: string } = { 0: 'accepted', 1: 'wrong' };
     const resp = Number(count !== inputs.length);
+    const status = map[resp];
+
     memory = memory / count;
     time = time / count;
 
@@ -71,7 +73,7 @@ export default class CreateSubmissionService {
       memory,
       time,
       message,
-      status: map[resp]
+      status
     });
 
     return submission;
