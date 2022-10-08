@@ -6,11 +6,6 @@ import ICompilerProvider from '../providers/CompilerProvider/models/IComplierPro
 import ISubmissionRepository from '../repositories/ISubmissionRepository';
 import Submission from '../infra/typeorm/entities/Submission';
 
-interface IStatus {
-  status: number;
-  message: string;
-}
-
 @injectable()
 export default class CreateSubmissionService {
   constructor(
