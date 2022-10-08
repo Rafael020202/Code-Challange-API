@@ -1,4 +1,3 @@
-
 export default interface IRankingRepository {
-    getAll(): Promise<any>;
+  getAll(): Promise<any>;
 }

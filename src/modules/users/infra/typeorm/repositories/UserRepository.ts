@@ -1,14 +1,13 @@
-import { getRepository, Repository } from "typeorm";
-import ICreateUserDTO from "@modules/users/dtos/ICreateUserDTO";
-import IUpdateUserDTO from "@modules/users/dtos/IUpdateUserDTO";
-import IUserRepository from "@modules/users/repositories/IUserRepository";
-import User from "../entities/User";
-
+import { getRepository, Repository } from 'typeorm';
+import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
+import IUserRepository from '@modules/users/repositories/IUserRepository';
+import User from '../entities/User';
 
 export default class UserRepository implements IUserRepository {
-  private ormRepository: Repository<User>
+  private ormRepository: Repository<User>;
 
-  constructor(){
+  constructor() {
     this.ormRepository = getRepository(User);
   }
 
@@ -19,7 +18,7 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    return await this.ormRepository.findOne({ where: {email} });
+    return await this.ormRepository.findOne({ where: { email } });
   }
 
   public async findById(user_id: string): Promise<User | undefined> {
@@ -30,11 +29,12 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async update(data: IUpdateUserDTO): Promise<void> {
-    const user = await this.ormRepository.findOne({ id: Number(data.id) }) as User;
-    
+    const user = (await this.ormRepository.findOne({
+      id: Number(data.id)
+    })) as User;
+
     Object.assign(user, data);
-    
+
     await this.ormRepository.save(user);
   }
-
 }

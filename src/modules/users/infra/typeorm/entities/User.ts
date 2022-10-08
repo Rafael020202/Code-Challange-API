@@ -1,17 +1,15 @@
 import Submission from '@modules/submission/infra/typeorm/entities/Submission';
-import { 
-  Column, 
-  CreateDateColumn, 
-  Entity, 
-  OneToMany, 
-  PrimaryGeneratedColumn, 
-  UpdateDateColumn 
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from 'typeorm';
-
 
 @Entity('users')
 export default class User {
-
   @PrimaryGeneratedColumn('increment', { type: 'numeric' })
   id: number;
 
@@ -30,6 +28,6 @@ export default class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Submission, submission => submission.user)
-  submissions: Submission[]
+  @OneToMany(() => Submission, (submission) => submission.user)
+  submissions: Submission[];
 }

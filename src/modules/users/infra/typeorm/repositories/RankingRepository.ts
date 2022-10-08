@@ -1,17 +1,16 @@
-import { getRepository, Repository } from "typeorm";
-import IRankingRepository from "@modules/users/repositories/IRankingRepository";
-import User from "../entities/User";
-
+import { getRepository, Repository } from 'typeorm';
+import IRankingRepository from '@modules/users/repositories/IRankingRepository';
+import User from '../entities/User';
 
 export default class UserRepository implements IRankingRepository {
-  private ormRepository: Repository<User>
+  private ormRepository: Repository<User>;
 
-  constructor(){
+  constructor() {
     this.ormRepository = getRepository(User);
   }
 
   public async getAll(): Promise<any> {
-      const ranking = await this.ormRepository.query(`
+    const ranking = await this.ormRepository.query(`
         select u.id as id, u.name, sum(p.points) as points, avg(time) as average_time, avg(memory) as average_memory, row_number() over(order by u.id) as position 
         from users u
         inner join submissions s 
@@ -23,9 +22,6 @@ export default class UserRepository implements IRankingRepository {
         order by points desc, average_time, average_memory
       `);
 
-      return ranking;
+    return ranking;
   }
-
- 
-
 }
