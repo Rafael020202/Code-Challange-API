@@ -7,7 +7,7 @@ import { UserRepository } from '@modules/users/infra/database/mongodb/repositori
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 
 import ISubmissionRepository from '@modules/submission/repositories/ISubmissionRepository';
-import SubmissionRepository from '@modules/submission/infra/typeorm/repositories/SubmissionRepository';
+import { SubmissionRepository } from '@modules/submission/infra/database/mongodb/repositories';
 
 import IInputRepository from '@modules/problem/repositories/IInputRepository';
 import InputRepository from '@modules/problem/infra/typeorm/repositories/InputRepository';
