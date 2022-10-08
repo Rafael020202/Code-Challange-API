@@ -9,9 +9,6 @@ import IUserRepository from '@modules/users/repositories/IUserRepository';
 import ISubmissionRepository from '@modules/submission/repositories/ISubmissionRepository';
 import { SubmissionRepository } from '@modules/submission/infra/database/mongodb/repositories';
 
-import IInputRepository from '@modules/problem/repositories/IInputRepository';
-import InputRepository from '@modules/problem/infra/database/mongodb/repositories/InputRepository';
-
 import '@modules/submission/providers';
 import '@modules/users/providers';
 
@@ -25,9 +22,4 @@ container.registerSingleton<IProblemRepository>(
 container.registerSingleton<ISubmissionRepository>(
   'SubmissionRepository',
   SubmissionRepository
-);
-
-container.registerSingleton<IInputRepository>(
-  'InputRepository',
-  InputRepository
 );

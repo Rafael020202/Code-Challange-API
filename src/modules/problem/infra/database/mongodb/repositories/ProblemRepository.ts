@@ -2,18 +2,20 @@ import * as uuid from 'uuid';
 import MongoDb from '@shared/infra/database/mongodb';
 import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
 import Problem from '@modules/problem/infra/database/mongodb/entities/Problem';
-import IProblemDTO from '@modules/problem/dtos/IProblemDTO';
+import ICreateProblemDTO from '@modules/problem/dtos/ICreateProblemDTO';
 
 export default class ProblemRepository implements IProblemRepository {
   private repository = MongoDb.getCollection('problems');
 
-  public async create(data: IProblemDTO): Promise<Problem> {
-    await this.repository.insertOne({
+  public async create(data: ICreateProblemDTO): Promise<Problem> {
+    const problem = {
       problem_id: uuid.v4(),
       ...data
-    });
+    };
 
-    return new Problem({});
+    await this.repository.insertOne(problem);
+
+    return new Problem(problem);
   }
 
   public async getAll(user_id: number): Promise<Problem[]> {

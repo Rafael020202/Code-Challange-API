@@ -1,4 +1,4 @@
-import IProblemDTO from '../dtos/IProblemDTO';
+import IProblemDTO from '../dtos/ICreateProblemDTO';
 import Problem from '../infra/database/mongodb/entities/Problem';
 
 export default interface IProblemRepository {

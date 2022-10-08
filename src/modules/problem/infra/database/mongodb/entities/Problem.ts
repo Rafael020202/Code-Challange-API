@@ -1,6 +1,5 @@
 import Submission from '@modules/submission/infra/database/mongodb/entities/Submission';
 import Category from './Category';
-import Input from './Input';
 
 export default class Problem {
   problem_id: number;
@@ -16,7 +15,11 @@ export default class Problem {
   qty_accepted: number;
   category: Category;
   submissions: Submission[];
-  inputs: Input[];
+  inputs: {
+    value: string;
+    output: string;
+    is_example: boolean;
+  }[];
   created_at: Date;
   updated_at: Date;
 

@@ -1,5 +1,3 @@
-import IInputDTO from './IInputDTO';
-
 export default interface IProblemDTO {
   title: string;
   description: string;
@@ -10,5 +8,9 @@ export default interface IProblemDTO {
   category_id: number;
   level: number;
   points: number;
-  inputs: IInputDTO[];
+  inputs: {
+    value: string;
+    output: string;
+    is_example: boolean;
+  }[];
 }
