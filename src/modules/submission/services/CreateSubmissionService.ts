@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 import stringSimilarity from 'string-similarity';
 import ISubmissionDTO from '../dtos/ISubmissionDTO';
-import IInputRepository from '@modules/problem/repositories/IInputRepository';
 import ICompilerProvider from '../providers/CompilerProvider/models/IComplierProvider';
 import ISubmissionRepository from '../repositories/ISubmissionRepository';
 import Submission from '../infra/typeorm/entities/Submission';
+import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
 
 @injectable()
 export default class CreateSubmissionService {
@@ -16,7 +16,7 @@ export default class CreateSubmissionService {
     private complierProvider: ICompilerProvider,
 
     @inject('InputRepository')
-    private inputRepository: IInputRepository
+    private problemRepository: IProblemRepository
   ) {}
 
   public async execute({
@@ -24,24 +24,22 @@ export default class CreateSubmissionService {
     problem_id,
     user_id
   }: ISubmissionDTO): Promise<Submission> {
-    const inputs = await this.inputRepository.getByProblemId(problem_id);
+    const { inputs } = await this.problemRepository.getById(problem_id);
 
     let count = 0;
     let time = 0;
     let memory = 0;
     let message = '';
 
-    for (let i = 0; i < inputs.length; i++) {
-      const data = inputs[i];
-
+    for (const input of inputs) {
       const { token } = await this.complierProvider.submit({
         source_code,
-        stdin: data.value
+        stdin: input.value
       });
 
       const response = await this.complierProvider.getSubmissionStatus(token);
       const compilerOutput = response.stdout.split('/n')[0];
-      const output = Buffer.from(data.output, 'base64').toString();
+      const output = Buffer.from(input.output, 'base64').toString();
       const similarity = stringSimilarity.compareTwoStrings(
         output,
         compilerOutput
@@ -52,7 +50,7 @@ export default class CreateSubmissionService {
         memory += Number(response.memory);
         count++;
       } else {
-        message = `Went worng in compare ${data.output} to ${output}`;
+        message = `Went worng in compare ${input.output} to ${output}`;
         break;
       }
     }
