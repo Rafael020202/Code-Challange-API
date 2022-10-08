@@ -18,33 +18,31 @@ export default class CreateSessionService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository
-  ){}
-  
+  ) {}
+
   public async execute(data: ICreateSessionDTO): Promise<IResponse> {
     const user = await this.userRepository.findByEmail(data.email);
 
-    if(!user) {
+    if (!user) {
       throw new AppError('User does not exist', 404);
     }
 
     const passwordCompare = await compare(data.password, user.password);
 
-    if(!passwordCompare) {
+    if (!passwordCompare) {
       throw new AppError('Wrong Password');
     }
 
     const token = sign({}, authConfig.secret, {
-      subject: user.id,
+      subject: String(user.id),
       expiresIn: authConfig.expiresIn
     });
 
     delete user.password;
-  
+
     return {
       user,
       token
-    }
-
+    };
   }
-
 }
