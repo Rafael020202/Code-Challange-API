@@ -2,8 +2,7 @@ import * as uuid from 'uuid';
 import MongoDb from '@shared/infra/database/mongodb';
 
 import User from '@modules/users/infra/database/mongodb/entities/User';
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
+import { ICreateUserDTO, IUpdateUserDTO } from '@modules/users/dtos';
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 
 export class UserRepository implements IUserRepository {

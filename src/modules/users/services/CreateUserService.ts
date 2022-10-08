@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import { ICreateUserDTO } from '@modules/users/dtos';
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 
 @injectable()

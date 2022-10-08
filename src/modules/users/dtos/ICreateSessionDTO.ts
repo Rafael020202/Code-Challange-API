@@ -1,4 +1,4 @@
-export default interface ICreateSessionDTO {
+export interface ICreateSessionDTO {
   email: string;
   password: string;
 }

@@ -7,7 +7,7 @@ import AppError from '@shared/errors/AppError';
 import authConfig from '@config/authConfig';
 
 import User from '@modules/users/infra/typeorm/entities/User';
-import ICreateSessionDTO from '@modules/users/dtos/ICreateSessionDTO';
+import { ICreateSessionDTO } from '@modules/users/dtos';
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 
 interface IResponse {
