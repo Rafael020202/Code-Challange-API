@@ -1,4 +1,4 @@
-import Submission from '@modules/submission/infra/typeorm/entities/Submission';
+import Submission from '@modules/submission/infra/database/mongodb/entities/Submission';
 
 export default class User {
   id: number;
