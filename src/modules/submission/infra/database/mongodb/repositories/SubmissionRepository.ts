@@ -1,3 +1,5 @@
+import * as uuid from 'uuid';
+
 import MongoDb from '@shared/infra/database/mongodb';
 
 import ISubmissionDTO from '@modules/submission/dtos/ISubmissionDTO';
@@ -8,9 +10,14 @@ export class SubmissionRepository implements ISubmissionRepository {
   private repository = MongoDb.getCollection('submissions');
 
   public async create(data: ISubmissionDTO): Promise<Submission> {
-    await this.repository.insertOne(data);
+    const submission = {
+      submission_id: uuid.v4(),
+      ...data
+    };
 
-    return new Submission({});
+    await this.repository.insertOne(submission);
+
+    return new Submission(submission);
   }
 
   public async get(id: number): Promise<Submission> {
