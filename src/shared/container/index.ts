@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 
 import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
-import ProblemRepository from '@modules/problem/infra/typeorm/repositories/ProblemRepository';
+import ProblemRepository from '@modules/problem/infra/database/mongodb/repositories/ProblemRepository';
 
 import { UserRepository } from '@modules/users/infra/database/mongodb/repositories';
 import IUserRepository from '@modules/users/repositories/IUserRepository';
@@ -10,7 +10,7 @@ import ISubmissionRepository from '@modules/submission/repositories/ISubmissionR
 import { SubmissionRepository } from '@modules/submission/infra/database/mongodb/repositories';
 
 import IInputRepository from '@modules/problem/repositories/IInputRepository';
-import InputRepository from '@modules/problem/infra/typeorm/repositories/InputRepository';
+import InputRepository from '@modules/problem/infra/database/mongodb/repositories/InputRepository';
 
 import '@modules/submission/providers';
 import '@modules/users/providers';

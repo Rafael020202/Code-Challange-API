@@ -1,4 +1,4 @@
-import Category from '../infra/typeorm/entities/Category';
+import Category from '../infra/database/mongodb/entities/Category';
 
 export default interface ICategoryRepository {
   getAll(): Promise<Category[]>;
