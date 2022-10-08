@@ -5,5 +5,4 @@ export default interface ISubmissionRepository {
   create(data: ISubmissionDTO): Promise<Submission>;
   get(id: number): Promise<Submission>;
   index(user_id: number): Promise<Submission[]>;
-  getByUser(): Promise<Submission[]>;
 }
