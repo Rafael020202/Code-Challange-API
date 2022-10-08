@@ -1,4 +1,4 @@
-import ISubmissionDTO from '../dtos/ISubmissionDTO';
+import ISubmissionDTO from '../dtos/ICreateSubmissionDTO';
 import Submission from '../infra/typeorm/entities/Submission';
 
 export default interface ISubmissionRepository {

@@ -2,14 +2,14 @@ import * as uuid from 'uuid';
 
 import MongoDb from '@shared/infra/database/mongodb';
 
-import ISubmissionDTO from '@modules/submission/dtos/ISubmissionDTO';
+import ICreateSubmissionDTO from '@modules/submission/dtos/ICreateSubmissionDTO';
 import Submission from '@modules/submission/infra/database/mongodb/entities/Submission';
 import ISubmissionRepository from '@modules/submission/repositories/ISubmissionRepository';
 
 export class SubmissionRepository implements ISubmissionRepository {
   private repository = MongoDb.getCollection('submissions');
 
-  public async create(data: ISubmissionDTO): Promise<Submission> {
+  public async create(data: ICreateSubmissionDTO): Promise<Submission> {
     const submission = {
       submission_id: uuid.v4(),
       ...data

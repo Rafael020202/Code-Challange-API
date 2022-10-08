@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import stringSimilarity from 'string-similarity';
-import ISubmissionDTO from '../dtos/ISubmissionDTO';
+import ICreateSubmissionDTO from '../dtos/ICreateSubmissionDTO';
 import ICompilerProvider from '../providers/CompilerProvider/models/IComplierProvider';
 import ISubmissionRepository from '../repositories/ISubmissionRepository';
 import Submission from '../infra/typeorm/entities/Submission';
@@ -23,7 +23,7 @@ export default class CreateSubmissionService {
     source_code,
     problem_id,
     user_id
-  }: ISubmissionDTO): Promise<Submission> {
+  }: ICreateSubmissionDTO): Promise<Submission> {
     const { inputs } = await this.problemRepository.getById(problem_id);
 
     let count = 0;
