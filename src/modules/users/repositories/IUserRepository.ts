@@ -1,6 +1,5 @@
-import User from '@modules/users/infra/database/mongodb/entities/User';
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
+import { User } from '@modules/users/entities';
+import { ICreateUserDTO, IUpdateUserDTO } from '@modules/users/dtos';
 
 export default interface IUserRepository {
   findByEmail(email: string): Promise<User | undefined>;

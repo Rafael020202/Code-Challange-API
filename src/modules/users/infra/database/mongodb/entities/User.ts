@@ -1,6 +1,6 @@
 import Submission from '@modules/submission/infra/database/mongodb/entities/Submission';
 
-export default class User {
+export class User {
   id: number;
   name: string;
   email: string;
