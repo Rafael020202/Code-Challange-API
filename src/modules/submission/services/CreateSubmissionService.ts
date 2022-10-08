@@ -62,10 +62,6 @@ export default class CreateSubmissionService {
     memory = memory / count;
     time = time / count;
 
-    /**
-     * Olhar os tipos dos dados no banco pois o mesmo está alterando sozinho para int4
-     */
-
     const submission = await this.submissionRepository.create({
       problem_id,
       source_code,
