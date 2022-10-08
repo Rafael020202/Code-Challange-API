@@ -21,13 +21,11 @@ export class UserRepository implements IUserRepository {
     return user ? new User(user) : undefined;
   }
 
-  public async create(data: ICreateUserDTO): Promise<User> {
-    await this.repository.insertOne({
+  public async create(data: ICreateUserDTO): Promise<void> {
+    this.repository.insertOne({
       user_id: uuid.v4(),
       ...data
     });
-
-    return new User({});
   }
 
   public async update(data: IUpdateUserDTO): Promise<void> {

@@ -2,7 +2,6 @@ import AppError from '@shared/errors/AppError';
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
-import User from '../infra/typeorm/entities/User';
 import IUserRepository from '../repositories/IUserRepository';
 
 @injectable()
@@ -12,7 +11,7 @@ export default class CreateUserService {
     private userRepository: IUserRepository
   ) {}
 
-  public async execute(data: ICreateUserDTO): Promise<User> {
+  public async execute(data: ICreateUserDTO): Promise<void> {
     const findUser = await this.userRepository.findByEmail(data.email);
 
     if (findUser) {
