@@ -1,18 +1,17 @@
-import Problem from "@modules/problem/infra/typeorm/entities/Problem";
-import User from "@modules/users/infra/typeorm/entities/User";
-import { 
-  Column, 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  JoinColumn, 
-  ManyToOne, 
+import Problem from '@modules/problem/infra/typeorm/entities/Problem';
+import User from '@modules/users/infra/typeorm/entities/User';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
   CreateDateColumn,
   UpdateDateColumn
-} from "typeorm";
+} from 'typeorm';
 
 @Entity('submissions')
 export default class Submission {
-  
   @PrimaryGeneratedColumn('increment', { type: 'numeric' })
   id: number;
 
@@ -33,23 +32,21 @@ export default class Submission {
 
   @Column({ type: 'numeric' })
   memory: number;
-  
+
   @Column()
   message: string;
 
-  @ManyToOne(() => Problem, problem => problem.submissions)
+  @ManyToOne(() => Problem, (problem) => problem.submissions)
   @JoinColumn({ name: 'problem_id' })
   problem: Problem;
 
-  @ManyToOne(() => User, user => user.submissions)
+  @ManyToOne(() => User, (user) => user.submissions)
   @JoinColumn({ name: 'user_id' })
   user: User;
-
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-  
 }

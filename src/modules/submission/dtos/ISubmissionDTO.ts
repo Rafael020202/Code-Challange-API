@@ -5,5 +5,5 @@ export default interface ISubmissionDTO {
   user_id: number;
   memory: number;
   message: string;
-  time: number;  
+  time: number;
 }
