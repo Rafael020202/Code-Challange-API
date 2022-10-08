@@ -13,7 +13,8 @@
   ],
   "rules": { 
     "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "prettier/prettier": 2
+    "semi-style": ["error", "last"],
+    "prettier/prettier": 2,
+    "@typescript-eslint/no-explicit-any": ["error", "never"]
   }
 }
