@@ -9,18 +9,18 @@ export default class ProblemController {
   private problemsRepository: IProblemRepository;
 
   public async create(request: Request, response: Response) {
-    console.log(request.body)
+    console.log(request.body);
     const createProblemService = container.resolve(CreateProblemService);
     const problem = await createProblemService.execute(request.body);
-      
+
     return response.json(problem);
   }
-    
+
   public async index(request: Request, response: Response) {
     const { user_id } = request.body;
 
     this.problemsRepository = new ProblemRepository();
-    
+
     return response.json(await this.problemsRepository.getAll(user_id));
   }
 
@@ -29,6 +29,5 @@ export default class ProblemController {
     this.problemsRepository = new ProblemRepository();
 
     return response.json(await this.problemsRepository.getById(Number(id)));
-  } 
-
+  }
 }

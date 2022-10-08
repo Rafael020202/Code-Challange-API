@@ -1,6 +1,6 @@
-import Category from "../infra/typeorm/entities/Category";
+import Category from '../infra/typeorm/entities/Category';
 
 export default interface ICategoryRepository {
-    getAll(): Promise<Category[]>;
-    getById(id: number): Promise<Category>;
+  getAll(): Promise<Category[]>;
+  getById(id: number): Promise<Category>;
 }

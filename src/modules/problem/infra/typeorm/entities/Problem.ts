@@ -1,22 +1,20 @@
-import { 
+import {
   Entity,
-  Column, 
-  PrimaryGeneratedColumn, 
-  CreateDateColumn, 
-  UpdateDateColumn, 
-  OneToMany, 
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
   JoinTable,
-  JoinColumn, 
-  ManyToOne 
+  JoinColumn,
+  ManyToOne
 } from 'typeorm';
 import Category from './Category';
 import Input from './Input';
 import Submission from '@modules/submission/infra/typeorm/entities/Submission';
 
-
 @Entity('problems')
-export default class Problem { 
-  
+export default class Problem {
   @PrimaryGeneratedColumn('increment', { type: 'numeric' })
   id: number;
 
@@ -38,25 +36,25 @@ export default class Problem {
   @Column()
   source_code: string;
 
-  @Column({ type: 'numeric'})
+  @Column({ type: 'numeric' })
   category_id: number;
 
   @Column()
   level: number;
 
-  @Column({ type: 'float4'})
+  @Column({ type: 'float4' })
   points: number;
 
   qty_accepted: number;
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
-  category: Category
+  category: Category;
 
-  @OneToMany(() => Submission, submission => submission.problem)
-  submissions: Submission[]
+  @OneToMany(() => Submission, (submission) => submission.problem)
+  submissions: Submission[];
 
-  @OneToMany(() => Input, input => input.problem)
+  @OneToMany(() => Input, (input) => input.problem)
   inputs: Input[];
 
   @CreateDateColumn()
@@ -64,5 +62,4 @@ export default class Problem {
 
   @UpdateDateColumn()
   updated_at: Date;
-
 }

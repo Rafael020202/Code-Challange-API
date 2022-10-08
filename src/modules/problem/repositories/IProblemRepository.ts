@@ -1,7 +1,7 @@
-import IProblemDTO from "../dtos/IProblemDTO";
-import Problem from "../infra/typeorm/entities/Problem";
+import IProblemDTO from '../dtos/IProblemDTO';
+import Problem from '../infra/typeorm/entities/Problem';
 
-export default interface IProblemRepository  {
+export default interface IProblemRepository {
   create(data: IProblemDTO): Promise<Problem>;
   getByTitle(title: string): Promise<Problem | undefined>;
   getAll(user_id: number): Promise<Problem[]>;

@@ -1,6 +1,6 @@
-import { 
-  Column, 
-  Entity, 
+import {
+  Column,
+  Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -9,27 +9,25 @@ import {
 } from 'typeorm';
 import Problem from './Problem';
 
-
 @Entity('inputs')
 export default class Input {
-
-  @PrimaryGeneratedColumn('increment',{ type: 'numeric' })
+  @PrimaryGeneratedColumn('increment', { type: 'numeric' })
   id: number;
 
   @Column()
   value: string;
-  
+
   @Column()
   output: string;
 
-  @Column({name: 'isexample'})
+  @Column({ name: 'isexample' })
   isExample: boolean;
 
-  @Column({ type: 'numeric'})
+  @Column({ type: 'numeric' })
   problem_id: number;
 
-  @ManyToOne(() => Problem, problem => problem.inputs)
-  @JoinColumn({name: 'problem_id'})
+  @ManyToOne(() => Problem, (problem) => problem.inputs)
+  @JoinColumn({ name: 'problem_id' })
   problem: Problem;
 
   @CreateDateColumn()

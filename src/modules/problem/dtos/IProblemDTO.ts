@@ -1,4 +1,4 @@
-import IInputDTO from "./IInputDTO";
+import IInputDTO from './IInputDTO';
 
 export default interface IProblemDTO {
   title: string;

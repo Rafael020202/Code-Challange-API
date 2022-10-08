@@ -1,5 +1,5 @@
-import IInputDTO from "../dtos/IInputDTO";
-import Input from "../infra/typeorm/entities/Input";
+import IInputDTO from '../dtos/IInputDTO';
+import Input from '../infra/typeorm/entities/Input';
 
 export default interface IInputRepository {
   create(data: IInputDTO): Promise<Input>;

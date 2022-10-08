@@ -3,8 +3,8 @@ import ICategoryRepository from '../../../repositories/ICategoryRepository';
 import Category from '../entities/Category';
 
 export default class CategoryRepository implements ICategoryRepository {
-  private ormRepository: Repository<Category>
-  
+  private ormRepository: Repository<Category>;
+
   constructor() {
     this.ormRepository = getRepository(Category);
   }
@@ -15,9 +15,8 @@ export default class CategoryRepository implements ICategoryRepository {
 
   public async getById(id: number): Promise<Category> {
     return await this.ormRepository.findOne({
-      where: {id},
+      where: { id },
       relations: ['problems']
     });
   }
-  
 }
