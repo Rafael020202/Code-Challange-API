@@ -30,7 +30,7 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async update(data: IUpdateUserDTO): Promise<void> {
-    const user = await this.ormRepository.findOne({ id: data.id }) as User;
+    const user = await this.ormRepository.findOne({ id: Number(data.id) }) as User;
     
     Object.assign(user, data);
     
