@@ -15,6 +15,6 @@
     "quotes": ["error", "single"],
     "semi-style": ["error", "last"],
     "prettier/prettier": 2,
-    "@typescript-eslint/no-explicit-any": ["error", "never"]
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
