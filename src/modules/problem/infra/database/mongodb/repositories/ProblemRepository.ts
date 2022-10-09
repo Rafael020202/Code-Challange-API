@@ -1,8 +1,8 @@
 import * as uuid from 'uuid';
 import MongoDb from '@shared/infra/database/mongodb';
 
+import { Problem } from '@modules/problem/infra/database/mongodb/entities';
 import { IProblemRepository } from '@modules/problem/repositories';
-import { Problem } from '@modules/problem/entities';
 import { ICreateProblemDTO } from '@modules/problem/dtos';
 
 export class ProblemRepository implements IProblemRepository {

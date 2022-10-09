@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 import MongoDb from '@shared/infra/database/mongodb';
 
-import { User } from '@modules/users/entities';
+import { User } from '@modules/users/infra/database/mongodb/entities';
 import { ICreateUserDTO, IUpdateUserDTO } from '@modules/users/dtos';
 import { IUserRepository } from '@modules/users/repositories';
 
