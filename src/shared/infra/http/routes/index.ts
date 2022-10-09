@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
 import { problemRoutes } from '@modules/problem/infra/http/routes';
-import { submissionRoutes } from '@modules/submission/infra/http';
-import { sessionRoutes, userRoutes } from '@modules/users/infra/routes';
+import { submissionRoutes } from '@modules/submission/infra/http/routes';
+import { sessionRoutes, userRoutes } from '@modules/users/infra/http/routes';
 
 import isAuthenticated from '@shared/middlewares/isAuthenticated';
 
