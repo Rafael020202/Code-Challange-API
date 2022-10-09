@@ -1,4 +1,4 @@
-export default interface ISubmissionDTO {
+export interface ICreateSubmissionDTO {
   status: string;
   problem_id: number;
   source_code: string;

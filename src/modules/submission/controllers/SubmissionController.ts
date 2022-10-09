@@ -1,9 +1,10 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
-import CreateSubmissionService from '../services/CreateSubmissionService';
-import SubmissionRepository from '../infra/typeorm/repositories/SubmissionRepository';
 
-export default class SubmissionController {
+import { CreateSubmissionService } from '@modules/submission/services';
+import { SubmissionRepository } from '@modules/submission/infra/database/mongodb/repositories';
+
+export class SubmissionController {
   public async create(request: Request, response: Response) {
     const createSubmission = container.resolve(CreateSubmissionService);
     const submission = await createSubmission.execute(request.body);

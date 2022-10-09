@@ -2,9 +2,9 @@ import * as uuid from 'uuid';
 
 import MongoDb from '@shared/infra/database/mongodb';
 
-import ICreateSubmissionDTO from '@modules/submission/dtos/ICreateSubmissionDTO';
-import Submission from '@modules/submission/infra/database/mongodb/entities/Submission';
-import ISubmissionRepository from '@modules/submission/repositories/ISubmissionRepository';
+import { ICreateSubmissionDTO } from '@modules/submission/dtos';
+import { Submission } from '@modules/submission/entities';
+import { ISubmissionRepository } from '@modules/submission/repositories';
 
 export class SubmissionRepository implements ISubmissionRepository {
   private repository = MongoDb.getCollection('submissions');

@@ -1,13 +1,14 @@
 import { inject, injectable } from 'tsyringe';
 import stringSimilarity from 'string-similarity';
-import ICreateSubmissionDTO from '../dtos/ICreateSubmissionDTO';
-import ICompilerProvider from '../providers/CompilerProvider/models/IComplierProvider';
-import ISubmissionRepository from '../repositories/ISubmissionRepository';
-import Submission from '../infra/typeorm/entities/Submission';
+
+import { ICreateSubmissionDTO } from '@modules/submission/dtos';
+import { ISubmissionRepository } from '@modules/submission/repositories';
+import { Submission } from '@modules/submission/entities';
 import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
+import ICompilerProvider from '@modules/submission/providers/CompilerProvider/models/IComplierProvider';
 
 @injectable()
-export default class CreateSubmissionService {
+export class CreateSubmissionService {
   constructor(
     @inject('SubmissionRepository')
     private submissionRepository: ISubmissionRepository,

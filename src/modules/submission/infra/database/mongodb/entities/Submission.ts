@@ -1,7 +1,7 @@
 import Problem from '@modules/problem/infra/typeorm/entities/Problem';
-import User from '@modules/users/infra/database/mongodb/entities/User';
+import { User } from '@modules/users/entities';
 
-export default class Submission {
+export class Submission {
   id: number;
   status: string;
   user_id: number;

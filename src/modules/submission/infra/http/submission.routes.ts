@@ -1,4 +1,4 @@
-import SubmissionController from '@modules/submission/controllers/SubmissionController';
+import { SubmissionController } from '@modules/submission/controllers';
 import { Router } from 'express';
 
 const submissionController = new SubmissionController();
@@ -8,4 +8,4 @@ submissionRoutes.post('/', submissionController.create);
 submissionRoutes.get('/', submissionController.index);
 submissionRoutes.get('/:id', submissionController.get);
 
-export default submissionRoutes;
+export { submissionRoutes };
