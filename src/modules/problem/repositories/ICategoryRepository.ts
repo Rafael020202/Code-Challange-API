@@ -1,4 +1,4 @@
-import { Category } from '../entities';
+import { Category } from '@modules/problem/entities';
 
 export interface ICategoryRepository {
   getAll(): Promise<Category[]>;
