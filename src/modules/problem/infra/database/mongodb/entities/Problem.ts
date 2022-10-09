@@ -1,7 +1,7 @@
-import Submission from '@modules/submission/infra/database/mongodb/entities/Submission';
-import Category from './Category';
+import { Submission } from '@modules/submission/entities';
+import { Category } from './';
 
-export default class Problem {
+export class Problem {
   problem_id: number;
   title: string;
   description: string;

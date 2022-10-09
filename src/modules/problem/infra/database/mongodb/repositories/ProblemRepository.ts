@@ -1,10 +1,11 @@
 import * as uuid from 'uuid';
 import MongoDb from '@shared/infra/database/mongodb';
-import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
-import Problem from '@modules/problem/infra/database/mongodb/entities/Problem';
-import ICreateProblemDTO from '@modules/problem/dtos/ICreateProblemDTO';
 
-export default class ProblemRepository implements IProblemRepository {
+import { IProblemRepository } from '@modules/problem/repositories';
+import { Problem } from '@modules/problem/entities';
+import { ICreateProblemDTO } from '@modules/problem/dtos';
+
+export class ProblemRepository implements IProblemRepository {
   private repository = MongoDb.getCollection('problems');
 
   public async create(data: ICreateProblemDTO): Promise<Problem> {

@@ -1,17 +1,16 @@
 import { inject, injectable } from 'tsyringe';
 
-import IProblemDTO from '../dtos/ICreateProblemDTO';
-
-import IProblemRepository from '../repositories/IProblemRepository';
+import { ICreateProblemDTO } from '../dtos';
+import { IProblemRepository } from '../repositories';
 
 @injectable()
-export default class CreateProblemService {
+export class CreateProblemService {
   constructor(
     @inject('ProblemRepository')
     private problemRepository: IProblemRepository
   ) {}
 
-  public async execute(data: IProblemDTO): Promise<void> {
+  public async execute(data: ICreateProblemDTO): Promise<void> {
     await this.problemRepository.create(data);
   }
 }

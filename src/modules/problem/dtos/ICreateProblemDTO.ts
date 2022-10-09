@@ -1,4 +1,4 @@
-export default interface IProblemDTO {
+export interface ICreateProblemDTO {
   title: string;
   description: string;
   input_description: string;

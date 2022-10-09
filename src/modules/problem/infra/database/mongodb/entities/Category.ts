@@ -1,4 +1,4 @@
-export default class Category {
+export class Category {
   category_id: number;
   description: string;
 

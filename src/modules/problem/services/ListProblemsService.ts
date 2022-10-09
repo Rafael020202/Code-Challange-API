@@ -1,8 +1,9 @@
 import { inject, injectable } from 'tsyringe';
-import IProblemRepository from '../repositories/IProblemRepository';
+
+import { IProblemRepository } from '../repositories';
 
 @injectable()
-export default class ListProblemService {
+export class ListProblemService {
   constructor(
     @inject('ProblemRepository')
     private problemRepository: IProblemRepository

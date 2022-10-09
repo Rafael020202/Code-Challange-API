@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import ProblemRepository from '../infra/typeorm/repositories/ProblemRepository';
-import IProblemRepository from '../repositories/IProblemRepository';
-import CreateProblemService from '../services/CreateProblemService';
+import { ProblemRepository } from '../infra/database/mongodb/repositories';
+import { IProblemRepository } from '../repositories';
+import { CreateProblemService } from '../services';
 
-export default class ProblemController {
+export class ProblemController {
   private problemsRepository: IProblemRepository;
 
   public async create(request: Request, response: Response) {

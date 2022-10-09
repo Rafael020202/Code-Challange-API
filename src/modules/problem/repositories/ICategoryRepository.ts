@@ -1,6 +1,6 @@
-import Category from '../infra/database/mongodb/entities/Category';
+import { Category } from '../entities';
 
-export default interface ICategoryRepository {
+export interface ICategoryRepository {
   getAll(): Promise<Category[]>;
   getById(id: number): Promise<Category>;
 }

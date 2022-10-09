@@ -1,8 +1,8 @@
-import IProblemDTO from '../dtos/ICreateProblemDTO';
-import Problem from '../infra/database/mongodb/entities/Problem';
+import { ICreateProblemDTO } from '../dtos';
+import { Problem } from '../entities';
 
-export default interface IProblemRepository {
-  create(data: IProblemDTO): Promise<Problem>;
+export interface IProblemRepository {
+  create(data: ICreateProblemDTO): Promise<Problem>;
   getAll(user_id: number): Promise<Problem[]>;
   getById(id: number): Promise<Problem | undefined>;
   getByCategory(category_id: number): Promise<Problem[] | undefined>;

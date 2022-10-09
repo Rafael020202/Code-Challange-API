@@ -1,8 +1,9 @@
 import MongoDb from '@shared/infra/database/mongodb';
-import ICategoryRepository from '@modules/problem/repositories/ICategoryRepository';
-import Category from '../entities/Category';
 
-export default class CategoryRepository implements ICategoryRepository {
+import { ICategoryRepository } from '@modules/problem/repositories';
+import { Category } from '../entities';
+
+export class CategoryRepository implements ICategoryRepository {
   private repository = MongoDb.getCollection('categories');
 
   public async getAll(): Promise<Category[]> {

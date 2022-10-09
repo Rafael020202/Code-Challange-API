@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import ProblemRoutes from '@modules/problem/infra/http/routes/problem.routes';
+import { problemRoutes } from '@modules/problem/infra/http/routes';
 import { submissionRoutes } from '@modules/submission/infra/http';
 import { sessionRoutes, userRoutes } from '@modules/users/infra/routes';
 
@@ -13,7 +13,7 @@ routes.use('/session', sessionRoutes);
 
 routes.use(isAuthenticated);
 
-routes.use('/problem', ProblemRoutes);
+routes.use('/problem', problemRoutes);
 routes.use('/submission', submissionRoutes);
 
 export default routes;
