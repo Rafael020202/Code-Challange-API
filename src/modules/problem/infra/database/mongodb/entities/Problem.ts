@@ -1,6 +1,3 @@
-import { Submission } from '@modules/submission/entities';
-import { Category } from './';
-
 export class Problem {
   problem_id: number;
   title: string;
@@ -13,8 +10,6 @@ export class Problem {
   level: number;
   points: number;
   qty_accepted: number;
-  category: Category;
-  submissions: Submission[];
   inputs: {
     value: string;
     output: string;
