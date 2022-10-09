@@ -4,10 +4,10 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import { ICreateUserDTO } from '@modules/users/dtos';
-import IUserRepository from '@modules/users/repositories/IUserRepository';
+import { IUserRepository } from '@modules/users/repositories';
 
 @injectable()
-export default class CreateUserService {
+export class CreateUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository

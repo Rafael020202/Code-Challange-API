@@ -3,7 +3,7 @@ import MongoDb from '@shared/infra/database/mongodb';
 
 import { User } from '@modules/users/entities';
 import { ICreateUserDTO, IUpdateUserDTO } from '@modules/users/dtos';
-import IUserRepository from '@modules/users/repositories/IUserRepository';
+import { IUserRepository } from '@modules/users/repositories';
 
 export class UserRepository implements IUserRepository {
   private repository = MongoDb.getCollection('users');

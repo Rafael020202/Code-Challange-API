@@ -3,11 +3,11 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import { IUpdateUserDTO } from '@modules/users/dtos';
-import IUserRepository from '@modules/users/repositories/IUserRepository';
+import { IUserRepository } from '@modules/users/repositories';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 
 @injectable()
-export default class UpdateUserService {
+export class UpdateUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,

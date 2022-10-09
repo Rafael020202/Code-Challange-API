@@ -6,9 +6,9 @@ import AppError from '@shared/errors/AppError';
 
 import authConfig from '@config/authConfig';
 
-import User from '@modules/users/infra/typeorm/entities/User';
+import { User } from '@modules/users/entities';
 import { ICreateSessionDTO } from '@modules/users/dtos';
-import IUserRepository from '@modules/users/repositories/IUserRepository';
+import { IUserRepository } from '@modules/users/repositories';
 
 interface IResponse {
   user: User;
@@ -16,7 +16,7 @@ interface IResponse {
 }
 
 @injectable()
-export default class CreateSessionService {
+export class CreateSessionService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository

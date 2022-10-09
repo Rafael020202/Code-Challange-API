@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import CreateUserService from '@modules/users/services/CreateUserService';
-import UpdateUserService from '@modules/users/services/UpdateUserService';
+import { CreateUserService, UpdateUserService } from '@modules/users/services';
 
 export class UserController {
   public async create(request: Request, response: Response) {
