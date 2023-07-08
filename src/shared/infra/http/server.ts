@@ -1,4 +1,4 @@
-import 'module-alias/register';
+import { addAliases } from 'module-alias';
 import 'dotenv/config';
 import 'reflect-metadata';
 import 'express-async-errors';
@@ -16,6 +16,14 @@ import logRequest from '@shared/middlewares/logRequest';
 import { config } from 'dotenv';
 
 config();
+
+if (process.env.NODE_ENV === 'production') {
+  addAliases({
+    '@modules': 'dist/modules',
+    '@shared': 'dist/shared',
+    '@config': 'dist/config'
+  });
+}
 
 const app = express();
 

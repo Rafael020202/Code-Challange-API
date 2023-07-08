@@ -4,5 +4,6 @@ COPY *.json ./
 RUN yarn
 COPY . .
 EXPOSE 8080
+ENV NODE_ENV production
 RUN yarn build
 CMD ["yarn", "start"]
