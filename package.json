@@ -5,19 +5,21 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect  --transpile-only --ignore-watch node_modules ./src/shared/infra/http/server.ts",
+    "start": "node dist/shared/infra/http/server.js",
+    "debug": "ts-node-dev -r tsconfig-paths/register --inspect  --transpile-only --ignore-watch node_modules ./src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
     "axios": "^0.21.1",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "eslint": "^8.25.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.3",
     "mongodb": "^4.10.0",
     "pg": "^8.5.1",
     "prettier": "^2.7.1",
@@ -41,5 +43,10 @@
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.3"
+  },
+  "_moduleAliases": {
+    "@modules": "dist/modules",
+    "@shared": "dist/shared",
+    "@config": "dist/config"
   }
 }
