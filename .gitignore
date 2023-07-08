@@ -5,3 +5,4 @@ ormconfig.json
 .vscode
 .idea
 src/shared/infra/database/migrations/*.ts
+dist
