@@ -1,6 +1,8 @@
 import mongodb, { MongoClient, Collection } from 'mongodb';
 import chalk from 'chalk';
 
+import env from '@config/env';
+
 class MongoDb {
   private static db: mongodb.Db;
   private static client: any;
@@ -8,25 +10,11 @@ class MongoDb {
 
   public static async connect() {
     if (this.db) return;
-
-    const {
-      MONGODB_USER: user,
-      MONGODB_PASSWORD: password,
-      MONGODB_DB: db
-    } = process.env;
-
+    console.log(env.MONGO_URL);
     try {
-      this.client = await MongoClient.connect(
-        `mongodb+srv://${encodeURIComponent(user)}:${encodeURIComponent(
-          password
-        )}@cluster0.ajqso.mongodb.net/${db}?retryWrites=true&w=majority`,
-        {
-          maxIdleTimeMS: 100,
-          maxConnecting: 1
-        }
-      );
+      this.client = await MongoClient.connect(env.MONGO_URL);
 
-      this.db = this.client.db(db);
+      this.db = this.client.db('app_db');
 
       console.log(chalk.bgGreen('MongoDb connection up'));
     } catch (err) {
