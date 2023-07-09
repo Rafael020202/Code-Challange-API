@@ -6,3 +6,4 @@ ormconfig.json
 .idea
 src/shared/infra/database/migrations/*.ts
 dist
+data
