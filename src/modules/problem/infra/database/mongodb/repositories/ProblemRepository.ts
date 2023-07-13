@@ -26,7 +26,7 @@ export class ProblemRepository implements IProblemRepository {
     return problems.toArray();
   }
 
-  public async getById(id: number): Promise<Problem> {
+  public async getById(id: string): Promise<Problem> {
     const problem = await this.repository.findOne({ problem_id: id });
 
     return new Problem(problem);
