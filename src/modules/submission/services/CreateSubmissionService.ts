@@ -38,8 +38,17 @@ export class CreateSubmissionService {
         stdin: input.value
       });
 
-      const response = await this.complierProvider.getSubmissionStatus(token);
-      const compilerOutput = response.stdout.split('/n')[0];
+      let submission: any = await this.complierProvider.getSubmissionStatus(
+        token
+      );
+
+      if (submission.status.id === 2) {
+        do {
+          submission = await this.complierProvider.getSubmissionStatus(token);
+        } while (submission.status.id === 2);
+      }
+
+      const compilerOutput = submission.stdout.split('/n')[0];
       const output = Buffer.from(input.output, 'base64').toString();
       const similarity = stringSimilarity.compareTwoStrings(
         output,
@@ -47,8 +56,8 @@ export class CreateSubmissionService {
       );
 
       if (similarity === 1) {
-        time += Number(response.time);
-        memory += Number(response.memory);
+        time += Number(submission.time);
+        memory += Number(submission.memory);
         count++;
       } else {
         message = `Went worng in compare ${input.output} to ${output}`;
