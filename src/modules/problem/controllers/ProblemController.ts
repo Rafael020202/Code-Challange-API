@@ -28,6 +28,6 @@ export class ProblemController {
     const { id } = request.params;
     this.problemsRepository = new ProblemRepository();
 
-    return response.json(await this.problemsRepository.getById(Number(id)));
+    return response.json(await this.problemsRepository.getById(id));
   }
 }
