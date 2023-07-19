@@ -10,7 +10,7 @@ class MongoDb {
 
   public static async connect() {
     if (this.db) return;
-    console.log(env.MONGO_URL);
+
     try {
       this.client = await MongoClient.connect(env.MONGO_URL);
 
