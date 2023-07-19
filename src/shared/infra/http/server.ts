@@ -29,7 +29,7 @@ app.use('/api-docs', serve, setup(apiDocument));
 
 app.use(routes);
 
-app.use((error: Error, _: Request, response: Response, __: NextFunction) => {
+app.use((error: Error, _: Request, response: Response) => {
   if (error instanceof AppError) {
     return response.status(error.errorCode).json({ message: error.message });
   }
