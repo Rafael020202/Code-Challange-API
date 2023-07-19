@@ -1,21 +1,27 @@
 import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
-import IUpdateUserDTO from '../dtos/IUpdateUserDTO';
-import IUserRepository from '../repositories/IUserRepository';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+
+import { IUpdateUserDTO } from '@modules/users/dtos';
+import { IUserRepository } from '@modules/users/repositories';
+import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 
 @injectable()
-export default class UpdateUserService {
-  
+export class UpdateUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider 
-  ){}
+    private hashProvider: IHashProvider
+  ) {}
 
-  public async execute({ email, id, password, name }: IUpdateUserDTO): Promise<void> {
+  public async execute({
+    email,
+    id,
+    password,
+    name
+  }: IUpdateUserDTO): Promise<void> {
     const user = await this.userRepository.findById(id);
 
     if (user?.email !== email) {
@@ -26,12 +32,10 @@ export default class UpdateUserService {
       }
     }
 
-    if(user?.password !== password) {
+    if (user?.password !== password) {
       password = await this.hashProvider.encrypt(password);
     }
 
-
     return this.userRepository.update({ password, email, id, name });
-
   }
 }

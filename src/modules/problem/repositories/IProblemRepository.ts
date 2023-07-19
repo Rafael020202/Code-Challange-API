@@ -1,10 +1,9 @@
-import IProblemDTO from "../dtos/IProblemDTO";
-import Problem from "../infra/typeorm/entities/Problem";
+import { ICreateProblemDTO } from '@modules/problem/dtos';
+import { Problem } from '@modules/problem/entities';
 
-export default interface IProblemRepository  {
-  create(data: IProblemDTO): Promise<Problem>;
-  getByTitle(title: string): Promise<Problem | undefined>;
+export interface IProblemRepository {
+  create(data: ICreateProblemDTO): Promise<Problem>;
   getAll(user_id: number): Promise<Problem[]>;
-  getById(id: number): Promise<Problem | undefined>;
+  getById(id: string): Promise<Problem | undefined>;
   getByCategory(category_id: number): Promise<Problem[] | undefined>;
 }

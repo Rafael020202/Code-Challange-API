@@ -1,22 +1,19 @@
 import { Router } from 'express';
 
-import ProblemRoutes from '@modules/problem/infra/http/routes/problem.routes';
-import SubmissionRoutes from '@modules/submission/infra/http/submission.routes';
-import usersRoutes from '@modules/users/infra/routes/user.routes';
-import sessionsRoutes from '@modules/users/infra/routes/session.routes';
-import rankingRoutes from '@modules/users/infra/routes/ranking.routes';
+import { problemRoutes } from '@modules/problem/infra/http/routes';
+import { submissionRoutes } from '@modules/submission/infra/http/routes';
+import { sessionRoutes, userRoutes } from '@modules/users/infra/http/routes';
 
 import isAuthenticated from '@shared/middlewares/isAuthenticated';
 
 const routes = Router();
 
-routes.use('/users', usersRoutes);
-routes.use('/session', sessionsRoutes);
+routes.use('/users', userRoutes);
+routes.use('/session', sessionRoutes);
 
 routes.use(isAuthenticated);
 
-routes.use('/problem', ProblemRoutes);
-routes.use('/submission', SubmissionRoutes);
-routes.use('/ranking', rankingRoutes);
+routes.use('/problem', problemRoutes);
+routes.use('/submission', submissionRoutes);
 
 export default routes;

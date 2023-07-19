@@ -12,6 +12,6 @@ interface ISubmit {
 }
 
 export default interface ICompilerProvider {
-  submit(data: ISubmit): Promise<{ token: string }>; 
-  getSubmissionStatus(id: string): Promise<IResponse>
+  submit(data: ISubmit): Promise<{ token: string }>;
+  getSubmissionStatus(id: string): Promise<IResponse>;
 }

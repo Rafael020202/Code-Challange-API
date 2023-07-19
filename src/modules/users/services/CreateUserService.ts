@@ -1,19 +1,19 @@
+import { hash } from 'bcrypt';
+import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
-import { hash }  from 'bcrypt';
-import { inject, injectable } from "tsyringe";
-import ICreateUserDTO from "../dtos/ICreateUserDTO";
-import User from "../infra/typeorm/entities/User";
-import IUserRepository from "../repositories/IUserRepository";
+
+import { ICreateUserDTO } from '@modules/users/dtos';
+import { IUserRepository } from '@modules/users/repositories';
 
 @injectable()
-export default class CreateUserService {
-  
+export class CreateUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository
-  ){}
+  ) {}
 
-  public async execute(data: ICreateUserDTO): Promise<User> {
+  public async execute(data: ICreateUserDTO): Promise<void> {
     const findUser = await this.userRepository.findByEmail(data.email);
 
     if (findUser) {
@@ -23,6 +23,5 @@ export default class CreateUserService {
     data.password = await hash(data.password, 8);
 
     return this.userRepository.create(data);
-
   }
 }

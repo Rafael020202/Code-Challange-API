@@ -1,18 +1,14 @@
 import { inject, injectable } from 'tsyringe';
 import stringSimilarity from 'string-similarity';
-import ISubmissionDTO from '../dtos/ISubmissionDTO';
-import IInputRepository from '@modules/problem/repositories/IInputRepository';
-import ICompilerProvider from '../providers/CompilerProvider/models/IComplierProvider';
-import ISubmissionRepository from '../repositories/ISubmissionRepository';
-import Submission from '../infra/typeorm/entities/Submission';
 
-interface IStatus {
-  status: number;
-  message: string;
-}
+import { ICreateSubmissionDTO } from '@modules/submission/dtos';
+import { ISubmissionRepository } from '@modules/submission/repositories';
+import { Submission } from '@modules/submission/entities';
+import IProblemRepository from '@modules/problem/repositories/IProblemRepository';
+import ICompilerProvider from '@modules/submission/providers/CompilerProvider/models/IComplierProvider';
 
 @injectable()
-export default class CreateSubmissionService {
+export class CreateSubmissionService {
   constructor(
     @inject('SubmissionRepository')
     private submissionRepository: ISubmissionRepository,
@@ -20,62 +16,72 @@ export default class CreateSubmissionService {
     @inject('CompilerProvider')
     private complierProvider: ICompilerProvider,
 
-    @inject('InputRepository')
-    private inputRepository: IInputRepository
-  ){}
+    @inject('ProblemRepository')
+    private problemRepository: IProblemRepository
+  ) {}
 
-  public async execute({source_code, problem_id, user_id}: ISubmissionDTO): Promise<Submission> {
-    const inputs = await this.inputRepository.getByProblemId(problem_id);
+  public async execute({
+    source_code,
+    problem_id,
+    user_id
+  }: ICreateSubmissionDTO): Promise<Submission> {
+    const { inputs } = await this.problemRepository.getById(problem_id);
 
     let count = 0;
     let time = 0;
     let memory = 0;
     let message = '';
 
-    for(let i = 0; i < inputs.length; i++) {
-      const data = inputs[i];
-
+    for (const input of inputs) {
       const { token } = await this.complierProvider.submit({
-        source_code, 
-        stdin: data.value
+        source_code,
+        stdin: input.value
       });
 
-      const response  = await this.complierProvider.getSubmissionStatus(token);
-      const compilerOutput = response.stdout.split('/n')[0];
-      const output = Buffer.from(data.output, 'base64').toString();
-      const similarity = stringSimilarity.compareTwoStrings(output, compilerOutput);
+      let submission: any = await this.complierProvider.getSubmissionStatus(
+        token
+      );
+
+      if (submission.status.id === 2) {
+        do {
+          submission = await this.complierProvider.getSubmissionStatus(token);
+        } while (submission.status.id === 2);
+      }
+
+      const compilerOutput = submission.stdout.split('/n')[0];
+      const output = Buffer.from(input.output, 'base64').toString();
+      const similarity = stringSimilarity.compareTwoStrings(
+        output,
+        compilerOutput
+      );
 
       if (similarity === 1) {
-        time += Number(response.time); 
-        memory += Number(response.memory);
+        time += Number(submission.time);
+        memory += Number(submission.memory);
         count++;
-      }
-      else { 
-        message = `Went worng in compare ${data.output} to ${output}`;
+      } else {
+        message = `Went worng in compare ${input.output} to ${output}`;
         break;
-      }       
+      }
     }
 
-    const map: { [key: number]: string } = { 0:  'accepted', 1: 'wrong' };
+    const map: { [key: number]: string } = { 0: 'accepted', 1: 'wrong' };
     const resp = Number(count !== inputs.length);
-    memory = (memory/count);
-    time = (time/count);
+    const status = map[resp];
 
-    /**
-     * Olhar os tipos dos dados no banco pois o mesmo está alterando sozinho para int4
-     */
+    memory = memory / count;
+    time = time / count;
 
-    const submission = await this.submissionRepository.create({ 
-      problem_id, 
+    const submission = await this.submissionRepository.create({
+      problem_id,
       source_code,
       user_id,
       memory,
       time,
       message,
-      status: map[resp]
+      status
     });
 
-    return submission; 
-  
+    return submission;
   }
 }

@@ -1,9 +1,8 @@
-import ISubmissionDTO from "../dtos/ISubmissionDTO";
-import Submission from "../infra/typeorm/entities/Submission";
+import { ICreateSubmissionDTO } from '@modules/submission/dtos';
+import { Submission } from '@modules/submission/entities';
 
-export default interface ISubmissionRepository {
-  create(data: ISubmissionDTO): Promise<Submission>;
+export interface ISubmissionRepository {
+  create(data: ICreateSubmissionDTO): Promise<Submission>;
   get(id: number): Promise<Submission>;
   index(user_id: number): Promise<Submission[]>;
-  getByUser(): Promise<Submission[]>;
 }
