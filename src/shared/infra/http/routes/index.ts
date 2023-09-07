@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { problemRoutes } from '@modules/problem/infra/http/routes';
+import problemRoutes from '@modules/problem/main/routes';
 import { submissionRoutes } from '@modules/submission/infra/http/routes';
 import { sessionRoutes, userRoutes } from '@modules/users/infra/http/routes';
 
