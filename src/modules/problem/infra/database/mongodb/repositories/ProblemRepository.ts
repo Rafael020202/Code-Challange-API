@@ -4,8 +4,24 @@ import MongoDb from '@shared/infra/database/mongodb';
 import { Problem } from '@modules/problem/models';
 import { IProblemRepository } from '@modules/problem/repositories';
 import { ICreateProblemDTO } from '@modules/problem/dtos';
+import { AddProblemRepository } from '@modules/problem/data/protocols';
 
-export class ProblemRepository implements IProblemRepository {
+export class ProblemRepository
+  implements IProblemRepository, AddProblemRepository
+{
+  public async add(
+    data: AddProblemRepository.Params
+  ): Promise<AddProblemRepository.Result> {
+    const repository = MongoDb.getCollection('problems');
+    const problem = {
+      id: uuid.v4(),
+      ...data
+    };
+    const dbResult = await repository.insertOne(problem);
+
+    return dbResult.acknowledged;
+  }
+
   public async create(data: ICreateProblemDTO): Promise<Problem> {
     const repository = MongoDb.getCollection('problems');
     const problem = {

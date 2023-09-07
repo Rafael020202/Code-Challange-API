@@ -1,10 +1,8 @@
 import { AddProblemController } from '@modules/problem/controllers';
-import { CreateProblemService } from '@modules/problem/services';
-import { ProblemRepository } from '@modules/problem/infra/database/mongodb/repositories';
+import { makeDbAddProblem } from '@modules/problem/factories';
 
 export const makeAddProblemController = () => {
-  const problemRepository = new ProblemRepository();
-  const createProblemService = new CreateProblemService(problemRepository);
+  const dbAddProblem = makeDbAddProblem();
 
-  return new AddProblemController(createProblemService);
+  return new AddProblemController(dbAddProblem);
 };

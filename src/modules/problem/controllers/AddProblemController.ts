@@ -1,15 +1,21 @@
 import { Controller, HttpResponse } from '@shared/protocols';
-import { CreateProblemService } from '@modules/problem/services';
+import { AddProblem } from '@modules/problem/domain/usecases';
 
 export class AddProblemController implements Controller {
-  constructor(private createProblemService: CreateProblemService) {}
+  constructor(private dbAddProblem: AddProblem) {}
 
   public async handle(
     request: AddProblemController.Request
   ): Promise<HttpResponse> {
     const data = request as any;
+    const isValid = await this.dbAddProblem.add(data);
 
-    await this.createProblemService.execute(data);
+    if (!isValid) {
+      return {
+        body: {},
+        status: 400
+      };
+    }
 
     return {
       body: {},
