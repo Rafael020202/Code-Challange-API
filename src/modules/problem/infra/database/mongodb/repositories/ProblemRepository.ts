@@ -6,36 +6,36 @@ import { IProblemRepository } from '@modules/problem/repositories';
 import { ICreateProblemDTO } from '@modules/problem/dtos';
 
 export class ProblemRepository implements IProblemRepository {
-  private repository = MongoDb.getCollection('problems');
-
   public async create(data: ICreateProblemDTO): Promise<Problem> {
+    const repository = MongoDb.getCollection('problems');
     const problem = {
       problem_id: uuid.v4(),
       ...data
     };
 
-    await this.repository.insertOne(problem);
+    await repository.insertOne(problem);
 
-    return new Problem(problem);
+    return problem as any;
   }
 
   public async getAll(user_id: number): Promise<Problem[]> {
-    const result = await this.repository.find({ user_id });
-    const problems = result.map((value) => new Problem(value));
+    const repository = MongoDb.getCollection('problems');
+    const result = await repository.find({ user_id }).toArray();
 
-    return problems.toArray();
+    return result as any;
   }
 
   public async getById(id: string): Promise<Problem> {
-    const problem = await this.repository.findOne({ problem_id: id });
+    const repository = MongoDb.getCollection('problems');
+    const problem = await repository.findOne({ problem_id: id });
 
-    return new Problem(problem);
+    return problem as any;
   }
 
   public async getByCategory(category_id: number): Promise<Problem[]> {
-    const result = await this.repository.find({ category_id });
-    const problems = result.map((value) => new Problem(value));
+    const repository = MongoDb.getCollection('problems');
+    const result = await repository.find({ category_id }).toArray();
 
-    return problems.toArray();
+    return result as any;
   }
 }
