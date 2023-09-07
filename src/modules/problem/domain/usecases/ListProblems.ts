@@ -1,4 +1,4 @@
-import { Problem } from '@modules/problem/models';
+import { Problem } from '@modules/problem/domain/models';
 
 export interface ListProblems {
   list(userId: string): Promise<ListProblems.Result>;
