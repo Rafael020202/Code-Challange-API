@@ -25,6 +25,7 @@ export namespace AddProblemController {
     input_description: string;
     output_description: string;
     category_id: number;
+    user_id: string;
     level: number;
     inputs: {
       value: string;
