@@ -1,11 +1,9 @@
-import { SubmissionController } from '@modules/submission/controllers';
+import { adaptRoute } from '@shared/adapters';
+import { makeAddSubmissionController } from '@modules/submission/factories';
 import { Router } from 'express';
 
-const submissionController = new SubmissionController();
 const submissionRoutes = Router();
 
-submissionRoutes.post('/', submissionController.create);
-submissionRoutes.get('/', submissionController.index);
-submissionRoutes.get('/:id', submissionController.get);
+submissionRoutes.post('/', adaptRoute(makeAddSubmissionController()));
 
 export { submissionRoutes };

@@ -1,1 +1,1 @@
-export * from './SubmissionController';
+export * from './AddSubmissionController';

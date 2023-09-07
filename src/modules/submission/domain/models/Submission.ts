@@ -2,7 +2,7 @@ export class Submission {
   id: number;
   status: string;
   user_id: number;
-  problem_id: number;
+  problem_id: string;
   source_code: string;
   time: number;
   memory: number;
