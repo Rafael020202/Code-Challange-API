@@ -1,7 +1,7 @@
 import MongoDb from '@shared/infra/database/mongodb';
 
 import { ICategoryRepository } from '@modules/problem/repositories';
-import { Category } from '@modules/problem/entities';
+import { Category } from '@modules/problem/models';
 
 export class CategoryRepository implements ICategoryRepository {
   private repository = MongoDb.getCollection('categories');

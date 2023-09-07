@@ -1,5 +1,5 @@
 import { ICreateProblemDTO } from '@modules/problem/dtos';
-import { Problem } from '@modules/problem/entities';
+import { Problem } from '@modules/problem/models';
 
 export interface IProblemRepository {
   create(data: ICreateProblemDTO): Promise<Problem>;

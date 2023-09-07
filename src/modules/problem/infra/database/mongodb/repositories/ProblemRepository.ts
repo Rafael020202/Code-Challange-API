@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 import MongoDb from '@shared/infra/database/mongodb';
 
-import { Problem } from '@modules/problem/entities';
+import { Problem } from '@modules/problem/models';
 import { IProblemRepository } from '@modules/problem/repositories';
 import { ICreateProblemDTO } from '@modules/problem/dtos';
 
