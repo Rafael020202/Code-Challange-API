@@ -5,7 +5,14 @@ import { Controller } from '@shared/protocols';
 export const adaptRoute = (controller: Controller) => {
   return async (request: Request, response: Response) => {
     try {
-      const httpResponse = await controller.handle(request.body);
+      const req = {
+        ...(request.body || {}),
+        ...(request.query || {}),
+        ...(request.params || {}),
+        user_id: request.user.id
+      };
+
+      const httpResponse = await controller.handle(req);
 
       return response.status(httpResponse.status).json(httpResponse.body);
     } catch (error) {
