@@ -1,2 +1,2 @@
 export * from './AddProblemControllerFactory';
-export * from './ListProblemsServiceFactory';
+export * from './ListProblemsControllerFactory';
