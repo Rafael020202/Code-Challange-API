@@ -1,4 +1,4 @@
-export class Problem {
+export type Problem = {
   problem_id: number;
   title: string;
   description: string;
@@ -17,8 +17,4 @@ export class Problem {
   }[];
   created_at: Date;
   updated_at: Date;
-
-  constructor(data: any) {
-    Object.assign(this, data);
-  }
-}
+};

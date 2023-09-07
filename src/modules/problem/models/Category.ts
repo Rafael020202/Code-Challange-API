@@ -1,8 +1,4 @@
-export class Category {
+export type Category = {
   category_id: number;
   description: string;
-
-  constructor(data: any) {
-    Object.assign(this, data);
-  }
-}
+};
