@@ -9,9 +9,7 @@ export class ListProblemService {
     private problemRepository: IProblemRepository
   ) {}
 
-  public async execute(id?: string) {
-    if (id) return this.problemRepository.getById(Number(id));
-
-    return this.problemRepository.getAll(1);
+  public async execute(userId: string) {
+    return this.problemRepository.getAll(userId);
   }
 }

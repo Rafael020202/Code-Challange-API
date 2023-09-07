@@ -18,7 +18,7 @@ export class ProblemRepository implements IProblemRepository {
     return problem as any;
   }
 
-  public async getAll(user_id: number): Promise<Problem[]> {
+  public async getAll(user_id: string): Promise<Problem[]> {
     const repository = MongoDb.getCollection('problems');
     const result = await repository.find({ user_id }).toArray();
 
