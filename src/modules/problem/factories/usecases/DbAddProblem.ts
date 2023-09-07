@@ -1,8 +1,8 @@
 import { DbAddProblem } from '@modules/problem/data/usecases';
-import { ProblemRepository } from '@modules/problem/infra/database/mongodb/repositories';
+import { ProblemMongoRepository } from '@modules/problem/infra/db/mongodb/repositories';
 
 export const makeDbAddProblem = () => {
-  const problemRepository = new ProblemRepository();
+  const problemMongoRepository = new ProblemMongoRepository();
 
-  return new DbAddProblem(problemRepository);
+  return new DbAddProblem(problemMongoRepository);
 };

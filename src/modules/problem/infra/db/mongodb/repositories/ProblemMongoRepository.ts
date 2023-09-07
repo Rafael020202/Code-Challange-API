@@ -6,7 +6,7 @@ import {
   ListProblemsRespository
 } from '@modules/problem/data/protocols';
 
-export class ProblemRepository
+export class ProblemMongoRepository
   implements AddProblemRepository, ListProblemsRespository
 {
   public async add(

@@ -1,8 +1,8 @@
 import { DbListProblems } from '@modules/problem/data/usecases';
-import { ProblemRepository } from '@modules/problem/infra/database/mongodb/repositories';
+import { ProblemMongoRepository } from '@modules/problem/infra/db/mongodb/repositories';
 
 export const makeDbListProblems = () => {
-  const problemRepository = new ProblemRepository();
+  const problemMongoRepository = new ProblemMongoRepository();
 
-  return new DbListProblems(problemRepository);
+  return new DbListProblems(problemMongoRepository);
 };
