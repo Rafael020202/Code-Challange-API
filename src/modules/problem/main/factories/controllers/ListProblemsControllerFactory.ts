@@ -1,4 +1,4 @@
-import { ListProblemsController } from '@modules/problem/controllers';
+import { ListProblemsController } from '@modules/problem/presentation/controllers';
 import { makeDbListProblems } from '@modules/problem/main/factories';
 
 export const makeListProblemsController = () => {
