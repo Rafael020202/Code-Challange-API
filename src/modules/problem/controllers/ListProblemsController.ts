@@ -1,13 +1,13 @@
 import { Controller, HttpResponse } from '@shared/protocols';
-import { ListProblemService } from '@modules/problem/services';
+import { ListProblems } from '@modules/problem/domain/usecases';
 
 export class ListProblemsController implements Controller {
-  constructor(private listProblemService: ListProblemService) {}
+  constructor(private DbListProblems: ListProblems) {}
 
   public async handle(
     request: ListProblemsController.Request
   ): Promise<HttpResponse> {
-    const result = await this.listProblemService.execute(request.user_id);
+    const result = await this.DbListProblems.list(request.user_id);
 
     return {
       body: result,

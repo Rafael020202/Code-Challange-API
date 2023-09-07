@@ -1,10 +1,8 @@
 import { ListProblemsController } from '@modules/problem/controllers';
-import { ListProblemService } from '@modules/problem/services';
-import { ProblemRepository } from '@modules/problem/infra/database/mongodb/repositories';
+import { makeDbListProblems } from '@modules/problem/factories';
 
 export const makeListProblemsController = () => {
-  const problemRepository = new ProblemRepository();
-  const listProblemService = new ListProblemService(problemRepository);
+  const dbListProblems = makeDbListProblems();
 
-  return new ListProblemsController(listProblemService);
+  return new ListProblemsController(dbListProblems);
 };
