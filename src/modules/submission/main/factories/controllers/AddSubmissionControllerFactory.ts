@@ -1,4 +1,4 @@
-import { AddSubmissionController } from '@modules/submission/controllers';
+import { AddSubmissionController } from '@modules/submission/presentation/controllers';
 import { makeDbAddSubmission } from '@modules/submission/main/factories';
 
 export const makeAddSubmissionController = () => {
