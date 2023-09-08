@@ -1,4 +1,5 @@
 import { Controller, HttpResponse } from '@shared/protocols';
+import { ok } from '@shared/helpers';
 import { AddSubmission } from '@modules/submission/domain/usecases';
 
 export class AddSubmissionController implements Controller {
@@ -9,10 +10,7 @@ export class AddSubmissionController implements Controller {
   ): Promise<HttpResponse> {
     const submissionResponse = await this.dbAddSubmission.add(request);
 
-    return {
-      body: submissionResponse,
-      status: 200
-    };
+    return ok(submissionResponse);
   }
 }
 

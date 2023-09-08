@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { Controller } from '@shared/protocols';
+import { ServerError } from '@shared/errors';
 
 export const adaptRoute = (controller: Controller) => {
   return async (request: Request, response: Response) => {
@@ -18,11 +19,7 @@ export const adaptRoute = (controller: Controller) => {
     } catch (error) {
       console.error(error);
 
-      return response.status(500).json({
-        error: 'server_error',
-        http_status: 500,
-        error_description: 'An internal server error has occured'
-      });
+      return response.status(500).json(new ServerError());
     }
   };
 };

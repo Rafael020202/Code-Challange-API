@@ -1,4 +1,5 @@
 import { Controller, HttpResponse } from '@shared/protocols';
+import { noContent } from '@shared/helpers';
 import { AddProblem } from '@modules/problem/domain/usecases';
 
 export class AddProblemController implements Controller {
@@ -8,19 +9,10 @@ export class AddProblemController implements Controller {
     request: AddProblemController.Request
   ): Promise<HttpResponse> {
     const data = request as any;
-    const isValid = await this.dbAddProblem.add(data);
 
-    if (!isValid) {
-      return {
-        body: {},
-        status: 400
-      };
-    }
+    await this.dbAddProblem.add(data);
 
-    return {
-      body: {},
-      status: 204
-    };
+    return noContent();
   }
 }
 
