@@ -9,6 +9,7 @@ export namespace AddProblem {
     input_description: string;
     output_description: string;
     category_id: number;
+    author: string;
     level: number;
     inputs: {
       value: string;

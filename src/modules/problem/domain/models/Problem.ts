@@ -7,6 +7,7 @@ export type Problem = {
   response: string;
   source_code: string;
   category_id: number;
+  author: string;
   level: number;
   points: number;
   qty_accepted: number;
