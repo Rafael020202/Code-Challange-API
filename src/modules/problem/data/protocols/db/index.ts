@@ -1,3 +1,3 @@
 export * from './AddProblemRespository';
-export * from './ListProblemsRespository';
+export * from './LoadProblemsByAuthorRepository';
 export * from './LoadProblemByIdRepository';
