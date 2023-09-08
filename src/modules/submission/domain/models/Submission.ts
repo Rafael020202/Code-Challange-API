@@ -1,4 +1,4 @@
-export class Submission {
+export type Submission = {
   id: number;
   status: string;
   user_id: number;
@@ -9,8 +9,4 @@ export class Submission {
   message: string;
   created_at: Date;
   updated_at: Date;
-
-  constructor(data: any) {
-    Object.assign(this, data);
-  }
-}
+};
