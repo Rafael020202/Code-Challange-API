@@ -1,10 +1,12 @@
 import { ListProblems } from '@modules/problem/domain/usecases';
-import { LoadProblemsByAuthor } from '@modules/problem/data/protocols';
+import { LoadProblemsByAuthorRepository } from '@modules/problem/data/protocols';
 
 export class DbListProblems implements ListProblems {
-  constructor(private listProblemsRespository: LoadProblemsByAuthor) {}
+  constructor(
+    private loadProblemsByAuthorRepository: LoadProblemsByAuthorRepository
+  ) {}
 
   public async list(author: string): Promise<ListProblems.Result> {
-    return this.listProblemsRespository.loadByAuthor(author);
+    return this.loadProblemsByAuthorRepository.loadByAuthor(author);
   }
 }

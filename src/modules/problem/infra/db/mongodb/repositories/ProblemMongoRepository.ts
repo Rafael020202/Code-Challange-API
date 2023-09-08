@@ -3,14 +3,14 @@ import MongoDb from '@shared/infra/database/mongodb';
 
 import {
   AddProblemRepository,
-  LoadProblemsByAuthor,
+  LoadProblemsByAuthorRepository,
   LoadProblemByIdRepository
 } from '@modules/problem/data/protocols';
 
 export class ProblemMongoRepository
   implements
     AddProblemRepository,
-    LoadProblemsByAuthor,
+    LoadProblemsByAuthorRepository,
     LoadProblemByIdRepository
 {
   public async add(
@@ -28,7 +28,7 @@ export class ProblemMongoRepository
 
   public async loadByAuthor(
     author: string
-  ): Promise<LoadProblemsByAuthor.Result> {
+  ): Promise<LoadProblemsByAuthorRepository.Result> {
     const repository = MongoDb.getCollection('problems');
     const result = await repository.find({ author }).toArray();
 
