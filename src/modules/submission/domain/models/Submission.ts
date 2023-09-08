@@ -1,7 +1,7 @@
 export type Submission = {
   id: number;
   status: string;
-  user_id: number;
+  owner: string;
   problem_id: string;
   source_code: string;
   time: number;

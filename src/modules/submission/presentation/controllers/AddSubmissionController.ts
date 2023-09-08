@@ -8,7 +8,12 @@ export class AddSubmissionController implements Controller {
   public async handle(
     request: AddSubmissionController.Request
   ): Promise<HttpResponse> {
-    const submissionResponse = await this.dbAddSubmission.add(request);
+    const { user_id, ...data } = request;
+
+    const submissionResponse = await this.dbAddSubmission.add({
+      owner: user_id,
+      ...data
+    });
 
     return ok(submissionResponse);
   }

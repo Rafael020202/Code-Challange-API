@@ -8,7 +8,7 @@ export namespace AddSubmission {
   export type Params = {
     problem_id: string;
     source_code: string;
-    user_id: number;
+    owner: number;
   };
 
   export type Result = Submission;
