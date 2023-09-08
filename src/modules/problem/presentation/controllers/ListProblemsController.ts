@@ -3,12 +3,12 @@ import { ok } from '@shared/helpers';
 import { ListProblems } from '@modules/problem/domain/usecases';
 
 export class ListProblemsController implements Controller {
-  constructor(private DbListProblems: ListProblems) {}
+  constructor(private dbListProblems: ListProblems) {}
 
   public async handle(
     request: ListProblemsController.Request
   ): Promise<HttpResponse> {
-    const result = await this.DbListProblems.list(request.user_id);
+    const result = await this.dbListProblems.list(request.user_id);
 
     return ok(result);
   }
