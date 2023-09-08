@@ -26,9 +26,9 @@ export class ProblemMongoRepository
     return dbResult.acknowledged;
   }
 
-  public async list(userId: string): Promise<ListProblemsRespository.Result> {
+  public async list(author: string): Promise<ListProblemsRespository.Result> {
     const repository = MongoDb.getCollection('problems');
-    const result = await repository.find({ user_id: userId }).toArray();
+    const result = await repository.find({ author }).toArray();
 
     return result as any;
   }

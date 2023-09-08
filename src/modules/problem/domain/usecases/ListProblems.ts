@@ -1,7 +1,7 @@
 import { Problem } from '@modules/problem/domain/models';
 
 export interface ListProblems {
-  list(userId: string): Promise<ListProblems.Result>;
+  list(author: string): Promise<ListProblems.Result>;
 }
 
 export namespace ListProblems {
