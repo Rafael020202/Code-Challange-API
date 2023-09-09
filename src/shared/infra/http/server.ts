@@ -10,7 +10,7 @@ import cors from 'cors';
 import chalk from 'chalk';
 
 import { MongoDb } from '@shared/infra/db';
-import routes from './routes';
+import routes from '@shared/infra/http/routes';
 import AppError from '@shared/errors/AppError';
 import logRequest from '@shared/middlewares/logRequest';
 import apiDocument from '@shared/docs';
