@@ -35,12 +35,12 @@ export class DbAddSubmission implements AddSubmission {
       let submission: any =
         await this.checkSubmissionStatusProvider.checkStatus(token);
 
-      if (submission.status.id === 2) {
+      if ([1, 2].includes(submission.status.id)) {
         do {
-          submission = await this.checkSubmissionStatusProvider.checkStatus(
-            token
-          );
-        } while (submission.status.id === 2);
+          submission = await this.checkSubmissionStatusProvider
+            .checkStatus(token)
+            .catch(() => submission);
+        } while ([1, 2].includes(submission.status.id));
       }
 
       const compilerOutput = submission.stdout.split('/n')[0];
