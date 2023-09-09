@@ -17,9 +17,9 @@ export class AuthMiddleware implements Middleware {
     const [, token] = data.authorization.split(' ');
 
     try {
-      const accountId = await this.decrypter.decrypt(token);
+      const { id } = await this.decrypter.decrypt(token);
 
-      return ok({ user_id: accountId });
+      return ok({ user_id: id });
     } catch (error) {
       return unauthorized(new InvalidClient());
     }
