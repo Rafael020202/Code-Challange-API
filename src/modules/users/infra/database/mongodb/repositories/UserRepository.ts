@@ -1,5 +1,5 @@
 import * as uuid from 'uuid';
-import MongoDb from '@shared/infra/database/mongodb';
+import { MongoDb } from '@shared/infra/db';
 
 import { User } from '@modules/users/entities';
 import { ICreateUserDTO, IUpdateUserDTO } from '@modules/users/dtos';
