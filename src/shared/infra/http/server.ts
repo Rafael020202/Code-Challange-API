@@ -1,10 +1,7 @@
 if (process.env.NODE_ENV === 'production') require('module-alias/register');
 
 import 'dotenv/config';
-import 'reflect-metadata';
 import 'express-async-errors';
-
-import '../../container';
 
 import express, { json, Request, Response } from 'express';
 import { serve, setup } from 'swagger-ui-express';
