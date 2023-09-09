@@ -11,7 +11,7 @@ export namespace AddSubmissionRespository {
     status: string;
     problem_id: string;
     source_code: string;
-    user_id: number;
+    owner: number;
     memory: number;
     message: string;
     time: number;

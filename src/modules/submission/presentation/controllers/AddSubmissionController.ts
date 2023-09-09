@@ -8,10 +8,10 @@ export class AddSubmissionController implements Controller {
   public async handle(
     request: AddSubmissionController.Request
   ): Promise<HttpResponse> {
-    const { user_id, ...data } = request;
+    const { account_id, ...data } = request;
 
     const submissionResponse = await this.dbAddSubmission.add({
-      owner: user_id,
+      owner: account_id,
       ...data
     });
 
@@ -23,6 +23,6 @@ export namespace AddSubmissionController {
   export type Request = {
     problem_id: string;
     source_code: string;
-    user_id: number;
+    account_id: number;
   };
 }

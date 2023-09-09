@@ -8,7 +8,7 @@ export class ListProblemsController implements Controller {
   public async handle(
     request: ListProblemsController.Request
   ): Promise<HttpResponse> {
-    const result = await this.dbListProblems.list(request.user_id);
+    const result = await this.dbListProblems.list(request.account_id);
 
     return ok(result);
   }
@@ -16,6 +16,6 @@ export class ListProblemsController implements Controller {
 
 export namespace ListProblemsController {
   export type Request = {
-    user_id: string;
+    account_id: string;
   };
 }

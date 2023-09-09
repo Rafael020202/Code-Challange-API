@@ -2,16 +2,16 @@ import { Router } from 'express';
 
 import problemRoutes from '@modules/problem/main/routes';
 import submissionRoutes from '@modules/submission/main/routes';
-import { sessionRoutes, userRoutes } from '@modules/users/infra/http/routes';
+import authRoutes from '@modules/auth/main/routes';
 
-import isAuthenticated from '@shared/middlewares/isAuthenticated';
+import { adaptMiddleware } from '@shared/adapters';
+import { makeAuthMiddleware } from '@modules/auth/main/factories';
 
 const routes = Router();
 
-routes.use('/users', userRoutes);
-routes.use('/session', sessionRoutes);
+routes.use('/oauth2', authRoutes);
 
-routes.use(isAuthenticated);
+routes.use(adaptMiddleware(makeAuthMiddleware()));
 
 routes.use('/problem', problemRoutes);
 routes.use('/submission', submissionRoutes);

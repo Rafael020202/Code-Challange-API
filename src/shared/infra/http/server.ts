@@ -1,10 +1,7 @@
 if (process.env.NODE_ENV === 'production') require('module-alias/register');
 
 import 'dotenv/config';
-import 'reflect-metadata';
 import 'express-async-errors';
-
-import '../../container';
 
 import express, { json, Request, Response } from 'express';
 import { serve, setup } from 'swagger-ui-express';
@@ -13,7 +10,7 @@ import cors from 'cors';
 import chalk from 'chalk';
 
 import { MongoDb } from '@shared/infra/db';
-import routes from './routes';
+import routes from '@shared/infra/http/routes';
 import AppError from '@shared/errors/AppError';
 import logRequest from '@shared/middlewares/logRequest';
 import apiDocument from '@shared/docs';
@@ -26,6 +23,11 @@ MongoDb.connect()
 
     app.use(cors());
     app.use(json());
+    app.use(
+      express.urlencoded({
+        extended: true
+      })
+    );
     app.use(logRequest);
 
     //@ts-ignore
