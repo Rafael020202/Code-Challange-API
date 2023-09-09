@@ -5,14 +5,12 @@ import { ServerError } from '@shared/errors';
 
 export const adaptRoute = (controller: Controller) => {
   return async (request: Request, response: Response) => {
-    console.log({ user_id: request.user_id });
-
     try {
       const req = {
         ...(request.body || {}),
         ...(request.query || {}),
         ...(request.params || {}),
-        user_id: request.user_id
+        account_id: request.account_id
       };
 
       const httpResponse = await controller.handle(req);

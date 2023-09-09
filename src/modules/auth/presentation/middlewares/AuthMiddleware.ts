@@ -19,7 +19,7 @@ export class AuthMiddleware implements Middleware {
     try {
       const { id } = await this.decrypter.decrypt(token);
 
-      return ok({ user_id: id });
+      return ok({ account_id: id });
     } catch (error) {
       return unauthorized(new InvalidClient());
     }

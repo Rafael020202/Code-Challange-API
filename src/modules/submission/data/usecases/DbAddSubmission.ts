@@ -70,7 +70,7 @@ export class DbAddSubmission implements AddSubmission {
     const submission = await this.addSubmissionRespository.add({
       problem_id: data.problem_id,
       source_code: data.source_code,
-      user_id: data.user_id,
+      owner: data.owner,
       memory,
       time,
       message,

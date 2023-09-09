@@ -8,9 +8,9 @@ export class AddProblemController implements Controller {
   public async handle(
     request: AddProblemController.Request
   ): Promise<HttpResponse> {
-    const { user_id, ...data } = request;
+    const { account_id, ...data } = request;
 
-    await this.dbAddProblem.add({ ...data, author: user_id });
+    await this.dbAddProblem.add({ ...data, author: account_id });
 
     return noContent();
   }
@@ -23,7 +23,7 @@ export namespace AddProblemController {
     input_description: string;
     output_description: string;
     category_id: number;
-    user_id: string;
+    account_id: string;
     level: number;
     inputs: {
       value: string;
