@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
 
-import MongoDb from '@shared/infra/database/mongodb';
+import { MongoDb } from '@shared/infra/db';
 import { AddSubmissionRespository } from '@modules/submission/data/protocols';
 
 export class SubmissionMongoRepository implements AddSubmissionRespository {
