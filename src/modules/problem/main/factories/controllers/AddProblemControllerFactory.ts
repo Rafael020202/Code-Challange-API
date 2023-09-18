@@ -41,7 +41,22 @@ export const makeAddProblemController = () => {
       type: 'string'
     },
     inputs: {
-      required: true
+      required: true,
+      type: 'array',
+      object: {
+        value: {
+          required: true,
+          type: 'string'
+        },
+        output: {
+          required: true,
+          type: 'string'
+        },
+        is_example: {
+          required: true,
+          type: 'boolean'
+        }
+      }
     }
   });
 

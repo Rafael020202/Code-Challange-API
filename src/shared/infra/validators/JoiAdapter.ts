@@ -1,6 +1,7 @@
 import Joi from 'joi';
 
 import { SchemaValidator } from '@shared/validation/protocols';
+import { JoiHelper } from './';
 
 export class JoiAdapter implements SchemaValidator {
   public validate(data: SchemaValidator.Params): SchemaValidator.Result {
@@ -9,18 +10,16 @@ export class JoiAdapter implements SchemaValidator {
     const joiValidationObject = {} as any;
 
     for (const field of fields) {
-      joiValidationObject[field] = Joi;
+      if (schema[field].type === 'array') {
+        const items = {} as any;
 
-      if (schema[field].type) {
-        joiValidationObject[field] = joiValidationObject[field][schema[field].type]();
-      }
+        for (const key in schema[field].object) {
+          items[key] = JoiHelper.schemaMap(schema[field].object[key]);
+        }
 
-      if (schema[field].max) {
-        joiValidationObject[field] = joiValidationObject[field].max(schema[field].max);
-      }
-
-      if (schema[field].required) {
-        joiValidationObject[field] = joiValidationObject[field].required();
+        joiValidationObject[field] = Joi.array().items(items);
+      } else {
+        joiValidationObject[field] = JoiHelper.schemaMap(schema[field]);
       }
     }
 
