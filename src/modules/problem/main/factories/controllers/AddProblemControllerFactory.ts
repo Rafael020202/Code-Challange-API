@@ -38,11 +38,10 @@ export const makeAddProblemController = () => {
     },
     account_id: {
       required: true,
-      type: 'number'
+      type: 'string'
     },
-    level: {
-      required: true,
-      type: 'number'
+    inputs: {
+      required: true
     }
   });
 
