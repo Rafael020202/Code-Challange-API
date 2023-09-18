@@ -2,15 +2,14 @@ export type Problem = {
   problem_id: number;
   title: string;
   description: string;
+  memory_limit: number;
+  timeout: number;
   input_description: string;
   output_description: string;
-  response: string;
   source_code: string;
   category_id: number;
   author: string;
   level: number;
-  points: number;
-  qty_accepted: number;
   inputs: {
     value: string;
     output: string;

@@ -8,6 +8,8 @@ export namespace AddProblem {
     description: string;
     input_description: string;
     output_description: string;
+    memory_limit: number;
+    timeout: number;
     category_id: number;
     author: string;
     level: number;

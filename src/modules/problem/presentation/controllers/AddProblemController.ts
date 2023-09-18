@@ -1,13 +1,19 @@
-import { Controller, HttpResponse } from '@shared/protocols';
-import { noContent } from '@shared/helpers';
+import { Controller, HttpResponse, Validation } from '@shared/protocols';
+import { noContent, badRequest } from '@shared/helpers';
 import { AddProblem } from '@modules/problem/domain/usecases';
 
 export class AddProblemController implements Controller {
-  constructor(private dbAddProblem: AddProblem) {}
+  constructor(private dbAddProblem: AddProblem, private validation: Validation) { }
 
   public async handle(
     request: AddProblemController.Request
   ): Promise<HttpResponse> {
+    const error = this.validation.validate(request);
+
+    if (error) {
+      return badRequest(error);
+    }
+
     const { account_id, ...data } = request;
 
     await this.dbAddProblem.add({ ...data, author: account_id });
@@ -22,6 +28,8 @@ export namespace AddProblemController {
     description: string;
     input_description: string;
     output_description: string;
+    memory_limit: number;
+    timeout: number;
     category_id: number;
     account_id: string;
     level: number;
