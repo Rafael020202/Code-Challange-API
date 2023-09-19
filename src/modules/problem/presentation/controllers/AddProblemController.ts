@@ -1,5 +1,5 @@
 import { Controller, HttpResponse, Validation } from '@shared/protocols';
-import { noContent, badRequest } from '@shared/helpers';
+import { ok, badRequest } from '@shared/helpers';
 import { AddProblem } from '@modules/problem/domain/usecases';
 
 export class AddProblemController implements Controller {
@@ -15,10 +15,9 @@ export class AddProblemController implements Controller {
     }
 
     const { account_id, ...data } = request;
+    const createdProblem = await this.dbAddProblem.add({ ...data, author: account_id });
 
-    await this.dbAddProblem.add({ ...data, author: account_id });
-
-    return noContent();
+    return ok(createdProblem);
   }
 }
 

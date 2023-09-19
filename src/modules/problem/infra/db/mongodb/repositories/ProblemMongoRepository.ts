@@ -24,9 +24,10 @@ export class ProblemMongoRepository
       created_at: new Date(),
       updated_at: new Date()
     };
-    const dbResult = await repository.insertOne(problem);
 
-    return dbResult.acknowledged;
+    await repository.insertOne({ ...problem });
+
+    return problem as any;
   }
 
   public async loadByAuthor(

@@ -14,7 +14,7 @@ export class DbAddSubmission implements AddSubmission {
     private addSubmissionRespository: AddSubmissionRespository,
     private codeSubmitProvider: CodeSubmitPovider,
     private checkSubmissionStatusProvider: CheckSubmissionStatusProvider
-  ) {}
+  ) { }
 
   public async add(data: AddSubmission.Params): Promise<AddSubmission.Result> {
     const { inputs } = await this.loadProblemByIdRepository.loadById(

@@ -1,3 +1,5 @@
+import { Problem } from '@modules/problem/domain/models';
+
 export interface AddProblem {
   add(data: AddProblem.Params): Promise<AddProblem.Result>;
 }
@@ -20,5 +22,5 @@ export namespace AddProblem {
     }[];
   };
 
-  export type Result = boolean;
+  export type Result = Problem;
 }
