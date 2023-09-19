@@ -10,5 +10,6 @@ const routes = Router();
 
 routes.post('/', adaptRoute(makeAddProblemController()));
 routes.get('/', adaptRoute(makeListProblemsController()));
+routes.get('/:id', adaptRoute(makeListProblemsController()));
 
 export default routes;

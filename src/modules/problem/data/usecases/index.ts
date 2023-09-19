@@ -1,2 +1,2 @@
 export * from './DbAddProblem';
-export * from './DbListProblems';
+export * from './DbSearchProblems';

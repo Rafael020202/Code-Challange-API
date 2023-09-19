@@ -1,8 +1,8 @@
 import { ListProblemsController } from '@modules/problem/presentation/controllers';
-import { makeDbListProblems } from '@modules/problem/main/factories';
+import { makeDbSearchProblems } from '@modules/problem/main/factories';
 
 export const makeListProblemsController = () => {
-  const dbListProblems = makeDbListProblems();
+  const dbSearchProblems = makeDbSearchProblems();
 
-  return new ListProblemsController(dbListProblems);
+  return new ListProblemsController(dbSearchProblems);
 };

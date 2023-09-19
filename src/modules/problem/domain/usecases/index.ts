@@ -1,2 +1,2 @@
 export * from './AddProblem';
-export * from './ListProblems';
+export * from './SearchProblems';
