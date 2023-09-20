@@ -1,9 +1,15 @@
 import * as uuid from 'uuid';
 
 import { MongoDb } from '@shared/infra/db';
-import { AddSubmissionRespository, UpdateSubmissionRespository } from '@modules/submission/data/protocols';
+import { AddSubmissionRespository, UpdateSubmissionRespository, LoadSubmissionByIdRepository } from '@modules/submission/data/protocols';
 
-export class SubmissionMongoRepository implements AddSubmissionRespository, UpdateSubmissionRespository {
+export class SubmissionMongoRepository implements AddSubmissionRespository, UpdateSubmissionRespository, LoadSubmissionByIdRepository {
+  public async loadById(id: string): Promise<LoadSubmissionByIdRepository.Result> {
+    const repository = MongoDb.getCollection('submissions');
+
+    return repository.findOne({ id }, { projection: { _id: 0 } }) as any;
+  }
+
   public async update(
     data: UpdateSubmissionRespository.Params
   ): Promise<UpdateSubmissionRespository.Result> {
