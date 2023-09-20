@@ -52,7 +52,7 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
         memory += Number(compiledSubmission.memory);
         count++;
       } else {
-        message = `Went worng in compare ${sub.input.output} to ${output}`;
+        message = `Went worng in compare ${compilerOutput} to ${output}`;
         break;
       }
     }
