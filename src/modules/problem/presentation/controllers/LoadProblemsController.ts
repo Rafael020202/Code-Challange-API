@@ -1,13 +1,19 @@
-import { Controller, HttpResponse } from '@shared/protocols';
-import { noContent, ok } from '@shared/helpers';
+import { Controller, HttpResponse, Validation } from '@shared/protocols';
+import { badRequest, noContent, ok } from '@shared/helpers';
 import { LoadProblems } from '@modules/problem/domain/usecases';
 
 export class LoadProblemsController implements Controller {
-  constructor(private dbLoadProblems: LoadProblems) { }
+  constructor(private dbLoadProblems: LoadProblems, private validation: Validation) { }
 
   public async handle(
     request: ListProblemsController.Request
   ): Promise<HttpResponse> {
+    const error = this.validation.validate(request);
+
+    if (error) {
+      return badRequest(error);
+    }
+
     const problems = await this.dbLoadProblems.load({
       limit: request.limit ?? 50,
       skip: request.skip ?? 0,
