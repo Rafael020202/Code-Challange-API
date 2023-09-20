@@ -40,9 +40,6 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
         compilerOutput
       );
 
-      console.log({ memory: Number(compiledSubmission.memory) });
-      console.log({ time: Number(compiledSubmission.time) });
-
       if (similarity === 1) {
         time += Number(compiledSubmission.time);
         memory += Number(compiledSubmission.memory);
