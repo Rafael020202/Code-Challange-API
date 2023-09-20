@@ -15,6 +15,10 @@ export const makeLoadSubmissionsController = () => {
       type: 'string',
       required: false
     },
+    problem_id: {
+      type: 'string',
+      required: false
+    },
     sort_by: {
       type: 'string',
       required: false

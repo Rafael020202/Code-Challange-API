@@ -12,6 +12,7 @@ export namespace LoadSubmissions {
     id?: string;
     limit?: number;
     skip?: number;
+    problemId?: string;
   };
 
   export type Result = Submission[];

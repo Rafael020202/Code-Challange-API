@@ -29,7 +29,9 @@ export class SubmissionMongoRepository implements AddSubmissionRespository,
       match.id = data.id;
     }
 
-    console.log(match);
+    if (data.problemId) {
+      match.problem_id = data.problemId;
+    }
 
     aggregate.push({
       $match: match

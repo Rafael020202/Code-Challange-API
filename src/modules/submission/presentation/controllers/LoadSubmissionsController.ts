@@ -15,6 +15,7 @@ export class LoadSubmissionsController implements Controller {
     const submissions = await this.dbLoadSubmissions.load({
       id: request.id,
       owner: request.account_id,
+      problemId: request.problem_id,
       sortBy: request.sort_order ?? 'created_at',
       sortOrder: request.sort_order ?? 'asc',
       limit: request.limit ?? 50,
@@ -37,5 +38,6 @@ export namespace LoadSubmissionsController {
     sort_order?: string;
     limit?: number;
     skip?: number;
+    problem_id?: string;
   };
 };
