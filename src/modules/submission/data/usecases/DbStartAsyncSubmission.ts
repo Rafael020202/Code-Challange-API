@@ -13,16 +13,7 @@ export class DbStartAsyncSubmission implements StartAsyncSubmission {
   ) { }
 
   public async start(data: StartAsyncSubmission.Params): Promise<StartAsyncSubmission.Result> {
-    console.log(data, data.problem_id);
-
     const { owner, problem_id, source_code, submission_id } = data;
-
-    const problem = await this.loadProblemByIdRepository.loadById(
-      problem_id
-    );
-
-    console.log({ problem });
-
     const { inputs } = await this.loadProblemByIdRepository.loadById(
       problem_id
     );
