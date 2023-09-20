@@ -1,6 +1,8 @@
 import stringSimilarity from 'string-similarity';
 
 import { ProcessAsyncSubmission } from '@modules/submission/domain/usecases';
+
+import { LoadProblemByIdRepository } from '@modules/problem/data/protocols';
 import {
   CheckSubmissionStatusProvider,
   UpdateSubmissionRespository
@@ -9,7 +11,8 @@ import {
 export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
   constructor(
     private updateSubmissionRespository: UpdateSubmissionRespository,
-    private checkSubmissionStatusProvider: CheckSubmissionStatusProvider
+    private checkSubmissionStatusProvider: CheckSubmissionStatusProvider,
+    private loadProblemByIdRepository: LoadProblemByIdRepository
   ) { }
 
   public async process(data: ProcessAsyncSubmission.Params): Promise<ProcessAsyncSubmission.Result> {
@@ -37,6 +40,9 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
         compilerOutput
       );
 
+      console.log({ memory: Number(compiledSubmission.memory) });
+      console.log({ time: Number(compiledSubmission.time) });
+
       if (similarity === 1) {
         time += Number(compiledSubmission.time);
         memory += Number(compiledSubmission.memory);
@@ -47,12 +53,16 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
       }
     }
 
-    const map: { [key: number]: string } = { 0: 'accepted', 1: 'wrong' };
-    const resp = Number(count !== data.submissions.length);
-    const status = map[resp];
+    const problem = await this.loadProblemByIdRepository.loadById(data.problem_id);
+
+    let status = 'accepted';
 
     memory = memory / count;
     time = time / count;
+
+    if (count !== data.submissions.length || memory > problem.memory_limit || time > problem.timeout) {
+      status = 'wrong';
+    }
 
     await this.updateSubmissionRespository.update({
       problem_id: data.problem_id,
