@@ -20,6 +20,7 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
     let time = 0;
     let memory = 0;
     let message = '';
+    let compilationError = false;
 
     for (const sub of data.submissions) {
       let compiledSubmission: any =
@@ -31,6 +32,12 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
             .checkStatus(sub.token)
             .catch(() => compiledSubmission);
         } while ([1, 2].includes(compiledSubmission.status.id));
+      }
+
+      if (compiledSubmission.status.id === 6) {
+        compilationError = true;
+
+        break;
       }
 
       const compilerOutput = compiledSubmission.stdout.split('/n')[0];
@@ -54,11 +61,15 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
 
     let status = 'accepted';
 
-    memory = memory / count;
-    time = time / count;
+    if (compilationError) {
+      status = 'compilation_error'
+    } else {
+      memory = memory / count;
+      time = time / count;
 
-    if (count !== data.submissions.length || memory > problem.memory_limit || time > problem.timeout) {
-      status = 'wrong';
+      if (count !== data.submissions.length || memory > problem.memory_limit || time > problem.timeout) {
+        status = 'wrong';
+      }
     }
 
     await this.updateSubmissionRespository.update({
