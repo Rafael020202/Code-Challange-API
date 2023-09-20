@@ -16,7 +16,7 @@ export class LoadSubmissionsController implements Controller {
     });
 
     if (submissions.length) {
-      return ok(submissions.length > 1 ? submissions : submissions[0]);
+      return ok(request.id ? submissions[0] : submissions);
     }
 
     return noContent();
