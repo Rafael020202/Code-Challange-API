@@ -1,21 +1,12 @@
 import { Router } from 'express';
 
-import problemRoutes from '@modules/problem/main/routes';
-import submissionRoutes from '@modules/submission/main/routes';
-import authRoutes from '@modules/auth/main/routes';
-import categoryRoutes from '@modules/category/main/routes';
+import authRouter from './auth';
+import apiRouter from './api';
 
-import { adaptMiddleware } from '@shared/adapters';
-import { makeAuthMiddleware } from '@modules/auth/main/factories';
+const router = Router();
 
-const routes = Router();
+router.use(authRouter);
 
-routes.use('/oauth2', authRoutes);
+router.use('/api', apiRouter);
 
-routes.use(adaptMiddleware(makeAuthMiddleware()));
-
-routes.use('/problem', problemRoutes);
-routes.use('/submission', submissionRoutes);
-routes.use('/category', categoryRoutes);
-
-export default routes;
+export default router;
