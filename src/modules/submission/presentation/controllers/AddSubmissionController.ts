@@ -16,12 +16,12 @@ export class AddSubmissionController implements Controller {
 
     const { account_id, ...data } = request;
 
-    const submissionResponse = await this.dbAddSubmission.add({
+    const createdSubId = await this.dbAddSubmission.add({
       owner: account_id,
       ...data
     });
 
-    return ok(submissionResponse);
+    return ok({ id: createdSubId });
   }
 }
 
@@ -29,6 +29,6 @@ export namespace AddSubmissionController {
   export type Request = {
     problem_id: string;
     source_code: string;
-    account_id: number;
+    account_id: string;
   };
 }

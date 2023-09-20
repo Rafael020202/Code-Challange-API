@@ -1,5 +1,5 @@
 export type Submission = {
-  id: number;
+  id: string;
   status: string;
   owner: string;
   problem_id: string;
