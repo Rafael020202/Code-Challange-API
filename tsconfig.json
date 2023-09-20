@@ -9,11 +9,18 @@
     "strict": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
+    "noImplicitAny": false,
     "baseUrl": "./src",
     "paths": {
-      "@modules/*": ["modules/*"],
-      "@shared/*": ["shared/*"],
-      "@config/*": ["config/*"]
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
