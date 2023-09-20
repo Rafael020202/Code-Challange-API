@@ -5,7 +5,7 @@ import {
   AddProblemRepository,
   LoadProblemsByAuthorRepository,
   LoadProblemByIdRepository,
-  LoadProblemsByFiltersRepository
+  LoadProblemsRepository
 } from '@modules/problem/data/protocols';
 
 export class ProblemMongoRepository
@@ -13,7 +13,7 @@ export class ProblemMongoRepository
   AddProblemRepository,
   LoadProblemsByAuthorRepository,
   LoadProblemByIdRepository,
-  LoadProblemsByFiltersRepository {
+  LoadProblemsRepository {
   public async add(
     data: AddProblemRepository.Params
   ): Promise<AddProblemRepository.Result> {
@@ -48,42 +48,45 @@ export class ProblemMongoRepository
     return result as any;
   }
 
-  public async loadByFilters(data: LoadProblemsByFiltersRepository.Params): Promise<LoadProblemsByFiltersRepository.Result> {
+  public async loadAll(data: LoadProblemsRepository.Params): Promise<LoadProblemsRepository.Result> {
     const repository = MongoDb.getCollection('problems');
-    const search = [];
+    const aggregate = [];
+    const match = {} as any;
 
-    if (data.sort) {
-      search.push({
-        $sort: {
-          [data.sort.field]: data.sort.order === 'asc' ? 1 : -1
-        }
-      });
+    if (data.id) {
+      match.id = data.id;
     }
 
-    if (data.filters) {
-      search.push({
-        $match: data.filters
-      });
+    if (data.author) {
+      match.author = data.author;
     }
 
-    if (data.limit) {
-      search.push({
-        $limit: Number(data.limit)
-      });
+    if (data.categoryId) {
+      match.category_id = data.categoryId;
     }
 
-    if (data.skip) {
-      search.push({
-        $skip: Number(data.skip)
-      });
-    }
+    aggregate.push({
+      $sort: {
+        [data.sortBy]: data.sortOrder === 'asc' ? 1 : -1
+      }
+    });
 
-    search.push({
+    aggregate.push({
+      $match: match
+    });
+
+    aggregate.push({
+      $limit: Number(data.limit)
+    });
+
+    aggregate.push({
+      $skip: Number(data.skip)
+    });
+
+    aggregate.push({
       $project: { _id: 0, inputs: 0 }
     });
 
-    const aggregateResult = await repository.aggregate(search).toArray();
-
-    return aggregateResult as any;
+    return repository.aggregate(aggregate).toArray() as any;
   }
 }

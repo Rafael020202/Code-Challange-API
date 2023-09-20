@@ -1,2 +1,2 @@
 export * from './DbAddProblemFactory';
-export * from './DbSearchProblemsFactory';
+export * from './DbLoadProblemsFactory';

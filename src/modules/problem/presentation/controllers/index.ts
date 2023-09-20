@@ -1,2 +1,2 @@
 export * from './AddProblemController';
-export * from './ListProblemsController';
+export * from './LoadProblemsController';
