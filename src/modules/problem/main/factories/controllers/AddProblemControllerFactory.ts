@@ -53,7 +53,7 @@ export const makeAddProblemController = () => {
           type: 'string'
         },
         is_example: {
-          required: true,
+          required: false,
           type: 'boolean'
         }
       }
