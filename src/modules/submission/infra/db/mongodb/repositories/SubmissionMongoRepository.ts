@@ -1,13 +1,61 @@
 import * as uuid from 'uuid';
 
 import { MongoDb } from '@shared/infra/db';
-import { AddSubmissionRespository, UpdateSubmissionRespository, LoadSubmissionByIdRepository } from '@modules/submission/data/protocols';
+import {
+  AddSubmissionRespository,
+  UpdateSubmissionRespository,
+  LoadSubmissionByIdRepository,
+  LoadSubmissionsRepositoy
+} from '@modules/submission/data/protocols';
 
-export class SubmissionMongoRepository implements AddSubmissionRespository, UpdateSubmissionRespository, LoadSubmissionByIdRepository {
+export class SubmissionMongoRepository implements AddSubmissionRespository,
+  UpdateSubmissionRespository,
+  LoadSubmissionByIdRepository,
+  LoadSubmissionsRepositoy {
   public async loadById(id: string): Promise<LoadSubmissionByIdRepository.Result> {
     const repository = MongoDb.getCollection('submissions');
 
     return repository.findOne({ id }, { projection: { _id: 0 } }) as any;
+  }
+
+  public async loadAll(data: LoadSubmissionsRepositoy.Params): Promise<LoadSubmissionsRepositoy.Result> {
+    const repository = MongoDb.getCollection('submissions');
+    const aggregate = [];
+    const match = {
+      owner: data.owner
+    } as any;
+
+    if (data.id) {
+      match.id = data.id;
+    }
+
+    console.log(match);
+
+    aggregate.push({
+      $match: match
+    });
+
+    aggregate.push({
+      $sort: { [data.sortBy]: data.sortOrder === 'asc' ? 1 : -1 }
+    });
+
+    if (data.skip) {
+      aggregate.push({
+        $skip: Number(data.skip)
+      });
+    }
+
+    if (data.limit) {
+      aggregate.push({
+        $limit: Number(data.limit)
+      });
+    }
+
+    aggregate.push({
+      $project: { _id: 0 }
+    });
+
+    return repository.aggregate(aggregate).toArray() as any;
   }
 
   public async update(
