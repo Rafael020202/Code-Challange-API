@@ -1,11 +1,17 @@
-import { Controller, HttpResponse } from '@shared/protocols';
-import { ok, noContent } from '@shared/helpers';
+import { Controller, HttpResponse, Validation } from '@shared/protocols';
+import { ok, noContent, badRequest } from '@shared/helpers';
 import { LoadSubmissions } from '@modules/submission/domain/usecases';
 
 export class LoadSubmissionsController implements Controller {
-  constructor(private dbLoadSubmissions: LoadSubmissions) { }
+  constructor(private dbLoadSubmissions: LoadSubmissions, private validation: Validation) { }
 
   public async handle(request: LoadSubmissionsController.Request): Promise<HttpResponse> {
+    const error = this.validation.validate(request);
+
+    if (error) {
+      return badRequest(error);
+    }
+
     const submissions = await this.dbLoadSubmissions.load({
       id: request.id,
       owner: request.account_id,
