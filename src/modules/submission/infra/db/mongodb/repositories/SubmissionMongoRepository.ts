@@ -1,9 +1,25 @@
 import * as uuid from 'uuid';
 
 import { MongoDb } from '@shared/infra/db';
-import { AddSubmissionRespository } from '@modules/submission/data/protocols';
+import { AddSubmissionRespository, UpdateSubmissionRespository } from '@modules/submission/data/protocols';
 
-export class SubmissionMongoRepository implements AddSubmissionRespository {
+export class SubmissionMongoRepository implements AddSubmissionRespository, UpdateSubmissionRespository {
+  public async update(
+    data: UpdateSubmissionRespository.Params
+  ): Promise<UpdateSubmissionRespository.Result> {
+    const repository = MongoDb.getCollection('submissions');
+    const { submission_id, ...upd } = data;
+
+    const result = await repository.updateOne({ id: submission_id }, {
+      $set: {
+        ...upd,
+        updated_at: new Date()
+      }
+    });
+
+    return result.acknowledged;
+  }
+
   public async add(
     data: AddSubmissionRespository.Params
   ): Promise<AddSubmissionRespository.Result> {

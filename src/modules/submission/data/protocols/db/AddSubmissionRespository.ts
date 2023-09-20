@@ -1,4 +1,4 @@
-import { AddSubmission } from '@modules/submission/domain/usecases';
+import { Submission } from '@modules/submission/domain/models';
 
 export interface AddSubmissionRespository {
   add(
@@ -11,10 +11,10 @@ export namespace AddSubmissionRespository {
     status: string;
     problem_id: string;
     source_code: string;
-    owner: number;
-    memory: number;
-    message: string;
-    time: number;
+    owner: string;
+    memory?: number;
+    message?: string;
+    time?: number;
   };
-  export type Result = AddSubmission.Result;
+  export type Result = Submission;
 }
