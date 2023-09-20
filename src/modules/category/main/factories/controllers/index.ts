@@ -1,1 +1,1 @@
-export * from './ListCategoriesControllerFactory';
+export * from './LoadCategoriesControllerFactory';

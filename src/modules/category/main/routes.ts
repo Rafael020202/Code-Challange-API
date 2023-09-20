@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { makeListCategoriesController } from '@modules/category/main/factories';
+import { makeLoadCategoriesController } from '@modules/category/main/factories';
 import { adaptRoute } from '@shared/adapters';
 
 const routes = Router();
 
-routes.get('/', adaptRoute(makeListCategoriesController()));
+routes.get('/', adaptRoute(makeLoadCategoriesController()));
 
 export default routes;

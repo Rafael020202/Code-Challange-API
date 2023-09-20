@@ -1,1 +1,1 @@
-export * from './DbListCategoriesFactory';
+export * from './DbLoadCategoriesFactory';

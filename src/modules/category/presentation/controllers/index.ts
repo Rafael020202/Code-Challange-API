@@ -1,1 +1,1 @@
-export * from './ListCategoriesController';
+export * from './LoadCategoriesController';

@@ -1,1 +1,1 @@
-export * from './loadCategoriesRepository';
+export * from './LoadCategoriesRepository';
