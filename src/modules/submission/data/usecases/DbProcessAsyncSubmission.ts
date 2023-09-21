@@ -83,6 +83,6 @@ export class DbProcessAsyncSubmission implements ProcessAsyncSubmission {
       status
     });
 
-    return;
+    return true;
   }
 }

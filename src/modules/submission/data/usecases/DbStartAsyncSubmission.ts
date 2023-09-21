@@ -42,6 +42,6 @@ export class DbStartAsyncSubmission implements StartAsyncSubmission {
       }
     });
 
-    return;
+    return true;
   }
 }
