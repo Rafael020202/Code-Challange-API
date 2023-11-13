@@ -1,5 +1,5 @@
 import { HttpResponse } from '@shared/protocols';
-import { ServerError } from '@shared/errors';
+import { ServerError, NotFoundError } from '@shared/errors';
 
 export const noContent = (): HttpResponse => {
   return {
@@ -35,5 +35,12 @@ export const badRequest = (error: Error): HttpResponse => {
   return {
     status: 400,
     body: error
+  };
+};
+
+export const notExists = (param: string): HttpResponse => {
+  return {
+    status: 404,
+    body: new NotFoundError(param)
   };
 };

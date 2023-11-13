@@ -1,9 +1,12 @@
 import { Controller, HttpResponse, Validation } from '@shared/protocols';
-import { ok, badRequest } from '@shared/helpers';
+import { ok, badRequest, notExists } from '@shared/helpers';
 import { AddProblem } from '@modules/problem/domain/usecases';
 
 export class AddProblemController implements Controller {
-  constructor(private dbAddProblem: AddProblem, private validation: Validation) { }
+  constructor(
+    private dbAddProblem: AddProblem,
+    private validation: Validation
+  ) {}
 
   public async handle(
     request: AddProblemController.Request
@@ -15,7 +18,14 @@ export class AddProblemController implements Controller {
     }
 
     const { account_id, ...data } = request;
-    const createdProblem = await this.dbAddProblem.add({ ...data, author: account_id });
+    const createdProblem = await this.dbAddProblem.add({
+      ...data,
+      author: account_id
+    });
+
+    if (!createdProblem) {
+      return notExists('category');
+    }
 
     return ok(createdProblem);
   }
