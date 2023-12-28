@@ -84,7 +84,7 @@ export class ProblemMongoRepository
     });
 
     aggregate.push({
-      $project: { _id: 0, inputs: 0 }
+      $project: { _id: 0 }
     });
 
     return repository.aggregate(aggregate).toArray() as any;
