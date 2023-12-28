@@ -9,6 +9,7 @@ export namespace AddSubmission {
     problem_id: string;
     source_code: string;
     owner: string;
+    language: number;
   };
 
   export type Result = string;

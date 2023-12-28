@@ -17,7 +17,11 @@ export const makeAddSubmissionController = () => {
     },
     account_id: {
       required: true
-    }
+    },
+    language: {
+      required: true,
+      type: 'number'
+    },
   });
 
   return new AddSubmissionController(dbAddSubmission, validation);

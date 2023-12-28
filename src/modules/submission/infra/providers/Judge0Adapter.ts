@@ -5,17 +5,28 @@ import {
 } from '@modules/submission/data/protocols';
 
 export class Judge0Adapter
-  implements CodeSubmitPovider, CheckSubmissionStatusProvider
-{
+  implements CodeSubmitPovider, CheckSubmissionStatusProvider {
   public async submit(
     data: CodeSubmitPovider.Params
   ): Promise<CodeSubmitPovider.Result> {
+    const languageMapper = {
+      1: 52,
+      2: 52,
+      3: 51,
+      4: 77,
+      5: 90,
+      6: 60,
+      7: 91,
+      8: 93,
+      9: 92
+    };
+
     const response = await axios.post(
       `${process.env.JudgeAPIHost}/submissions/?base64_encoded=true`,
       {
         source_code: data.source_code,
         stdin: data.stdin,
-        language_id: 52
+        language_id: languageMapper[data.language]
       },
       {
         headers: {

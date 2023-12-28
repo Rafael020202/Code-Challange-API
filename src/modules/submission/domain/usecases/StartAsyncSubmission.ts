@@ -1,5 +1,3 @@
-import { Submission } from '@modules/submission/domain/models';
-
 export interface StartAsyncSubmission {
   start(data: StartAsyncSubmission.Params): Promise<StartAsyncSubmission.Result>
 };
@@ -10,6 +8,7 @@ export namespace StartAsyncSubmission {
     submission_id: string;
     source_code: string;
     owner: string;
+    language: number;
   };
 
   export type Result = boolean;

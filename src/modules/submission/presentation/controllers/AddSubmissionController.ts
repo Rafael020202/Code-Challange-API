@@ -1,6 +1,8 @@
 import { Controller, HttpResponse, Validation } from '@shared/protocols';
 import { badRequest, ok } from '@shared/helpers';
+import { NotFoundError } from '@shared/errors';
 import { AddSubmission } from '@modules/submission/domain/usecases';
+import { LANGUAGES } from '@config/languages';
 
 export class AddSubmissionController implements Controller {
   constructor(private dbAddSubmission: AddSubmission, private validation: Validation) { }
@@ -12,6 +14,10 @@ export class AddSubmissionController implements Controller {
 
     if (error) {
       return badRequest(error);
+    }
+
+    if (!LANGUAGES[request.language]) {
+      return badRequest(new NotFoundError('language'));
     }
 
     const { account_id, ...data } = request;
@@ -30,5 +36,6 @@ export namespace AddSubmissionController {
     problem_id: string;
     source_code: string;
     account_id: string;
+    language: number;
   };
 }

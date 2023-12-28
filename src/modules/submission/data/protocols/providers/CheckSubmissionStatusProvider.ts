@@ -3,11 +3,6 @@ export interface CheckSubmissionStatusProvider {
 }
 
 export namespace CheckSubmissionStatusProvider {
-  export type Params = {
-    source_code: string;
-    stdin: string;
-  };
-
   export type Result = {
     stdout: string;
     time: number;

@@ -12,13 +12,14 @@ export class DbAddSubmission implements AddSubmission {
   ) { }
 
   public async add(data: AddSubmission.Params): Promise<AddSubmission.Result> {
-    const { owner, problem_id, source_code } = data;
+    const { owner, problem_id, source_code, language } = data;
 
     const submission = await this.addSubmissionRespository.add({
       problem_id,
       source_code,
       owner,
-      status: 'in_queue'
+      status: 'in_queue',
+      language
     });
 
     await this.enqueueProvider.enqueue({
@@ -27,7 +28,8 @@ export class DbAddSubmission implements AddSubmission {
         problem_id,
         source_code,
         submission_id: submission.id,
-        owner
+        owner,
+        language
       }
     });
 

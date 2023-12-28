@@ -15,6 +15,7 @@ export namespace AddSubmissionRespository {
     memory?: number;
     message?: string;
     time?: number;
+    language: number;
   };
   export type Result = Submission;
 }
